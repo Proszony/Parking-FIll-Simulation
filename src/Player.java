@@ -19,8 +19,8 @@ public class Player extends Entity {
     }
 
     public void setDeafultValues() {
-        x = -48;
-        y = -24;
+        x = -24;
+        y = 20 + 48*(0); // 24 - 4 -> ruch poziomy
         speed = 5;
         direction = "right";
     }

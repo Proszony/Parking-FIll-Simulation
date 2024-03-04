@@ -36,10 +36,12 @@ public class parkingCheck {
                 entityBRow = (entityBY + entity.speed) / gp.tileSize;
                 TileNum1 = gp.TileM.mapTileNUM[entityLCol][entityBRow];
                 TileNum2 = gp.TileM.mapTileNUM[entityRCol][entityBRow];
-                if (gp.TileM.tile[TileNum1].parkingspot == true) {
+                if (gp.TileM.tile[TileNum2].parkingspot == true) {
                     entity.parking = true;
                 }
-                else{entity.parking = false;}
+                else{entity.parking = false;
+                    gp.TileM.tile[TileNum2].taken = false;
+                }
                 break;
             case "left":
                 entityLCol = (entityLX - entity.speed + 40) / gp.tileSize;
