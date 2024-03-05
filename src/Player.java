@@ -14,15 +14,15 @@ public class Player extends Entity {
         this.keyH = keyH;
         //x+48,y+48,16,16
         solidArea = new Rectangle(24,24,8,8);
-        setDeafultValues();
+        setDeafultValues(-24,20,5,"right");
         getPImage();
     }
 
-    public void setDeafultValues() {
-        x = -24;
-        y = 20 + 48*(0); // 24 - 4 -> ruch poziomy
-        speed = 5;
-        direction = "right";
+    public void setDeafultValues(int xi, int yi, int speedi, String directioni) {
+        x = xi; //-24;
+        y = yi; //20 + 48*(0); // 24 - 4 -> ruch poziomy
+        speed = speedi; //5;
+        direction = directioni; //"right";
     }
 
 

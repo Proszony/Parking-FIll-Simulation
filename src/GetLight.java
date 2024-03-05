@@ -73,9 +73,9 @@ public class GetLight {
             for(int i = 0;i<ParkingSpots.length;i++){
                 int col = ParkingSpots[i][0];
                 int row = ParkingSpots[i][1];
-                int tileX = col*48;
-                int tileY = row*48;
-                if(Math.abs(entity.x - tileX) < 48 && Math.abs(entity.y - tileY) < 48){
+                int tileX = col*gp.tileSize;
+                int tileY = row*gp.tileSize;
+                if(Math.abs(entity.x - tileX) < gp.tileSize && Math.abs(entity.y - tileY) < gp.tileSize){
                     Light_y = tileY;
                     Light_x = tileX;
                 }
@@ -85,7 +85,7 @@ public class GetLight {
 
     public void drawLight(Graphics2D g2) {
         if(gp.player.parking){
-            int tilenum = gp.TileM.mapTileNUM[Light_x/48][Light_y/48];
+            int tilenum = gp.TileM.mapTileNUM[Light_x/gp.tileSize][Light_y/gp.tileSize];
             if(tilenum == 4){
                 g2.drawImage(LightTiles[3].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
             }
