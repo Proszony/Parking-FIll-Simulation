@@ -16,7 +16,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("GIGA NIGGA");
+        window.setTitle("Parking Test");
         window.setIconImage(img);
 
         GamePanel gamePanel = new GamePanel();
@@ -26,6 +26,18 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        window.setLocation(300,0);
+
+        JFrame Second_window = new JFrame();
+        Second_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Second_window.setResizable(false);
+        Second_window.setTitle("Sub_WIN");
+        Second_window.setIconImage(img);
+        Second_window.setLocationRelativeTo(null);
+        Second_window.setLocation(30,30);
+        Second_window.setVisible(true);
+        Second_window.setSize(250,700);
+
         gamePanel.startGameThread();
 
     }
