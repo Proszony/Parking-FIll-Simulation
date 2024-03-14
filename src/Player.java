@@ -13,8 +13,8 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
         //x+48,y+48,16,16
-        solidArea = new Rectangle(24,24,8,8);
-        setDeafultValues(-24,20,5,"right");
+        solidArea = new Rectangle(24, 24, 8, 8);
+        setDeafultValues(-24, 20, 5, "right");
         getPImage();
     }
 
@@ -37,7 +37,7 @@ public class Player extends Entity {
         }
     }
 
-//60 rzedow na mapie (pierwszy = -2)
+    //60 rzedow na mapie (pierwszy = -2)
     public void update() {
 //        System.out.println("x = " + x + ", y = " + y);
         if (keyH.upPress) {
@@ -48,44 +48,47 @@ public class Player extends Entity {
             direction = "left";
         } else if (keyH.rightPress) {
             direction = "right";
-        }else if (keyH.Lpress){
+        } else if (keyH.Lpress) {
             leave_parkingspot = true;
-        }else if (keyH.Ppress){
+        } else if (keyH.Ppress) {
             leave_parkingspot = false;
         }
         parking = false;
         gp.parkingCheck.checkTile(this);
-        if(keyH.leftPress || keyH.rightPress || keyH.upPress || keyH.downPress){
-        if(parking == false){
-            switch (direction){
-                case "up":
-                    if(y < -24){y = -24;}
-                    y -= speed;
-                    break;
-                case "down":
-                    if(y > 938){y = 938;}
-                    y += speed;
-                    break;
-                case "left":
-                    x -= speed;
-                    break;
-                case "right":
-                    x += speed;
-                    break;
+        if (keyH.leftPress || keyH.rightPress || keyH.upPress || keyH.downPress) {
+            if (parking == false) {
+                switch (direction) {
+                    case "up":
+                        if (y < -24) {
+                            y = -24;
+                        }
+                        y -= speed;
+                        break;
+                    case "down":
+                        if (y > 938) {
+                            y = 938;
+                        }
+                        y += speed;
+                        break;
+                    case "left":
+                        x -= speed;
+                        break;
+                    case "right":
+                        x += speed;
+                        break;
+                }
+            }
+            if (parking && !leave_parkingspot) {
+                switch (direction) {
+                    case "left":
+                        direction = "right";
+                        break;
+                    case "right":
+                        direction = "left";
+                        break;
+                }
             }
         }
-        if(parking && !leave_parkingspot){
-            switch (direction){
-                case "left":
-                    direction = "right";
-                    break;
-                case "right":
-                    direction = "left";
-                    break;
-            }
-        }
-
-    }
     }
 
     public void draw(Graphics2D g2) {
@@ -105,6 +108,6 @@ public class Player extends Entity {
                 image = right;
                 break;
         }
-        g2.drawImage(image, x, y, gp.PlayerSize*2, gp.PlayerSize*2, null);
+        g2.drawImage(image, x, y, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
     }
 }

@@ -21,11 +21,13 @@ public class StartingWindow extends JFrame {
         setSize(920, 665);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        BufferedImage icon = null;
 
         JButton programStartingButton = new JButton();
 
         try {
             BufferedImage playImage = ImageIO.read(new File("res/start.jpg"));
+            icon = ImageIO.read(new File("res/car-icon.png"));
             Image scaledImage = playImage.getScaledInstance(920, 665, Image.SCALE_SMOOTH);
             ImageIcon playIcon = new ImageIcon(scaledImage);
             programStartingButton = new JButton(playIcon);
@@ -33,11 +35,12 @@ public class StartingWindow extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setIconImage(icon); //Icon display
         programStartingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 startMainApplication();
-                dispose(); // Zamyka to oknopo uruchomieniu
+                dispose(); // Zamyka to okno po uruchomieniu
             }
         });
 

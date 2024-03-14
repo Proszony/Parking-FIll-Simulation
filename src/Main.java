@@ -25,7 +25,9 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
+
         window.setTitle("Parking Test Simulation");
+ 
         window.setIconImage(img);
 
         GamePanel gamePanel = new GamePanel();

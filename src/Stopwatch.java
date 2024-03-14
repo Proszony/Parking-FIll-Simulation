@@ -64,7 +64,7 @@ public class Stopwatch implements ActionListener {
         timeLabel2.setHorizontalAlignment(JTextField.CENTER);
 
         try {
-            BufferedImage playImage = ImageIO.read(new File("res/play_button.jpg"));
+            BufferedImage playImage = ImageIO.read(new File("res/stopwatch/play_button.jpg"));
             Image scaledImage = playImage.getScaledInstance(112, 68, Image.SCALE_SMOOTH);
             ImageIcon playIcon = new ImageIcon(scaledImage);
             startButton = new JButton(playIcon);
@@ -76,7 +76,7 @@ public class Stopwatch implements ActionListener {
         }
 
         try {
-            BufferedImage playImage = ImageIO.read(new File("res/stop_button.jpg"));
+            BufferedImage playImage = ImageIO.read(new File("res/stopwatch/stop_button.jpg"));
             Image scaledImage2 = playImage.getScaledInstance(115, 68, Image.SCALE_SMOOTH);
             ImageIcon playIcon2 = new ImageIcon(scaledImage2);
             stopButton = new JButton(playIcon2);
@@ -88,7 +88,7 @@ public class Stopwatch implements ActionListener {
         }
 
         try {
-            BufferedImage playImage3 = ImageIO.read(new File("res/reset_button.jpg"));
+            BufferedImage playImage3 = ImageIO.read(new File("res/stopwatch/reset_button.jpg"));
             Image scaledImage3 = playImage3.getScaledInstance(225, 50, Image.SCALE_SMOOTH);
             ImageIcon playIcon3 = new ImageIcon(scaledImage3);
             resetButton = new JButton(playIcon3);
@@ -122,7 +122,7 @@ public class Stopwatch implements ActionListener {
         frame.setLocation(30, 30);
         frame.setVisible(true);
         try {
-            frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res/stopwatch_background.png")))));
+            frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res/stopwatch/stopwatch_background.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
