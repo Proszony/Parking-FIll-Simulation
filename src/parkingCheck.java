@@ -44,7 +44,7 @@ public class parkingCheck {
                     }
                     break;
                 case "left":
-                    entityLCol = (entityLX - entity.speed + 40) / gp.tileSize;
+                    entityLCol = (entityLX - entity.speed + 15) / gp.tileSize;
                     TileNum1 = gp.TileM.mapTileNUM[entityLCol][entityTRow];
                     TileNum2 = gp.TileM.mapTileNUM[entityLCol][entityBRow];
                     if (gp.TileM.tile[TileNum2].parkingspot == true) {
@@ -56,7 +56,7 @@ public class parkingCheck {
                     }
                     break;
                 case "right":
-                    entityRCol = (entityRX + entity.speed - 5) / gp.tileSize;
+                    entityRCol = (entityRX + entity.speed - 30) / gp.tileSize;
                     TileNum1 = gp.TileM.mapTileNUM[entityRCol][entityTRow];
                     TileNum2 = gp.TileM.mapTileNUM[entityRCol][entityBRow];
                     if (gp.TileM.tile[TileNum2].parkingspot == true) {
