@@ -1,5 +1,7 @@
 Main - creates window and manages it
 
+StartingWindow - creates starting window and manages the start of simulation
+
 GamePanel - manages all actions inside the window
 
 Entity - parent class to all characters in the simulation
