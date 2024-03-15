@@ -14,7 +14,7 @@ public class Player extends Entity {
         this.keyH = keyH;
         //x+48,y+48,16,16
         solidArea = new Rectangle(24, 24, 8, 8);
-        setDeafultValues(-24, 20, 5, "right");
+        setDeafultValues(0, 0, 5, "right");
         getPImage();
     }
 
@@ -26,7 +26,7 @@ public class Player extends Entity {
     }
 
 
-    public void getPImage() {
+    public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!
         try {
             up = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDN/Black_CIVIC_CLEAN_NORTH_000.png"));
             down = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDS/Black_CIVIC_CLEAN_SOUTH_000.png"));
@@ -90,7 +90,6 @@ public class Player extends Entity {
             }
         }
     }
-
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -108,6 +107,7 @@ public class Player extends Entity {
                 image = right;
                 break;
         }
-        g2.drawImage(image, x, y, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+        g2.drawImage(image, x-24, y-24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+
     }
 }
