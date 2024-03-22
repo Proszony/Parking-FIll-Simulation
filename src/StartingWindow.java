@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class StartingWindow extends JFrame {
     public StartingWindow() {
@@ -16,9 +17,18 @@ public class StartingWindow extends JFrame {
         BufferedImage icon = null;
 
         JButton programStartingButton = new JButton();
-
+        //getting random number
+        Random random = new Random();
+        int n = random.nextInt(3);
+        String path = "";
         try {
-            BufferedImage playImage = ImageIO.read(new File("res/start.jpg"));
+            if(n == 2){
+                path = "res/TIPSY_DRIVING_SIM_V026.png";
+            }
+            else {
+                path = "res/start.jpg";
+            }
+            BufferedImage playImage = ImageIO.read(new File(path));
             icon = ImageIO.read(new File("res/car-icon.png"));
             Image scaledImage = playImage.getScaledInstance(920, 665, Image.SCALE_SMOOTH);
             ImageIcon playIcon = new ImageIcon(scaledImage);

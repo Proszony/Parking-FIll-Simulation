@@ -15,7 +15,7 @@ public class TileManager {
         tile = new Tile[25];
         mapTileNUM = new int[gp.maxCol][gp.maxRow];
         getTileImage();
-        loadMap("mapfrfr.csv");
+        loadMap("mapfrfrsmol.csv");
     }
 
     public void getTileImage() {
