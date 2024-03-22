@@ -14,17 +14,16 @@ public class Player extends Entity {
         this.keyH = keyH;
         //x+48,y+48,16,16
         solidArea = new Rectangle(24, 24, 8, 8);
-        setDeafultValues(0, 0, 5, "right");
+        setDeafultValues(0, 38, 5, "right");
         getPImage();
     }
 
     public void setDeafultValues(int xi, int yi, int speedi, String directioni) {
-        x = xi; //-24;
+        x = xi; //0;
         y = yi; //20 + 48*(0); // 24 - 4 -> ruch poziomy
         speed = speedi; //5;
         direction = directioni; //"right";
     }
-
 
     public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!
         try {
@@ -36,6 +35,8 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
+
+
 
     //60 rzedow na mapie (pierwszy = -2)
     public void update() {
@@ -59,15 +60,11 @@ public class Player extends Entity {
             if (parking == false) {
                 switch (direction) {
                     case "up":
-                        if (y < -24) {
-                            y = -24;
-                        }
+                        border();
                         y -= speed;
                         break;
                     case "down":
-                        if (y > 938) {
-                            y = 938;
-                        }
+                        border();
                         y += speed;
                         break;
                     case "left":
@@ -90,6 +87,7 @@ public class Player extends Entity {
             }
         }
     }
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -107,7 +105,7 @@ public class Player extends Entity {
                 image = right;
                 break;
         }
-        g2.drawImage(image, x-24, y-24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+        g2.drawImage(image, x - 24, y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
 
     }
 }
