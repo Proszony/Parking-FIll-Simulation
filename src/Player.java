@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.lang.Math;
 
@@ -8,13 +9,14 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
+    Graphics2D g2;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
         //x+48,y+48,16,16
-        solidArea = new Rectangle(24, 24, 8, 8);
-        setDeafultValues(0, 38, 5, "right");
+
+        setDeafultValues(-20, 38, 5, "right");
         getPImage();
     }
 
@@ -25,21 +27,35 @@ public class Player extends Entity {
         direction = directioni; //"right";
     }
 
-    public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!
+    public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!  // getClass().getResourceAsStream
         try {
-            up = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDN/Black_CIVIC_CLEAN_NORTH_000.png"));
-            down = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDS/Black_CIVIC_CLEAN_SOUTH_000.png"));
-            left = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDW/Black_CIVIC_CLEAN_WEST_000.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDE/Black_CIVIC_CLEAN_EAST_000.png"));
+            up = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDN/Blue_JEEP_CLEAN_NORTH_000.png"));
+            down = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDS/Blue_JEEP_CLEAN_SOUTH_000.png"));
+            left = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDW/Blue_JEEP_CLEAN_WEST_000.png"));
+            right = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDE/Blue_JEEP_CLEAN_EAST_000.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    public void border() {
+        if (y < -2) {
+            y = -2;
+        }
+        if (y > 666) {
+            y = 666;
+        }
+        if( x >= 1110){
+            x = 1105;
+        }
+        if(x <= -15){
+            x = -10;
+        }
+    }
 
     //60 rzedow na mapie (pierwszy = -2)
     public void update() {
+        solidArea = new Rectangle(x+18, y+18, 8, 8);
 //        System.out.println("x = " + x + ", y = " + y);
         if (keyH.upPress) {
             direction = "up";
@@ -55,7 +71,7 @@ public class Player extends Entity {
             leave_parkingspot = false;
         }
         parking = false;
-        gp.parkingCheck.checkTile(this);
+        gp.parkingCheck.checkPark(this);
         if (keyH.leftPress || keyH.rightPress || keyH.upPress || keyH.downPress) {
             if (parking == false) {
                 switch (direction) {
@@ -68,9 +84,11 @@ public class Player extends Entity {
                         y += speed;
                         break;
                     case "left":
+                        border();
                         x -= speed;
                         break;
                     case "right":
+                        border();
                         x += speed;
                         break;
                 }
@@ -86,6 +104,9 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+    public void solid(Graphics2D g2){
+        g2.draw(solidArea);
     }
 
     public void draw(Graphics2D g2) {
@@ -106,6 +127,5 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image, x - 24, y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
-
     }
 }

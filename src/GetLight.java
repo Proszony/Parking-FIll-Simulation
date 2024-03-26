@@ -13,9 +13,9 @@ public class GetLight {
     public GetLight(GamePanel gp){
         this.gp = gp;
         LightTiles = new LightTile[4];
-        ParkingSpots = new int[258][2];
+        ParkingSpots = new int[110][2];
         GetLightIMG();
-        LoadParking("mapfrfr.csv");
+        LoadParking("mapfrfrsmol.csv");
 
     }
     public void LoadParking(String filePath){
@@ -68,7 +68,6 @@ public class GetLight {
 
     public void GetTile(Entity entity){
         if(entity.parking){
-
             for(int i = 0;i<ParkingSpots.length;i++){
                 int col = ParkingSpots[i][0];
                 int row = ParkingSpots[i][1];
