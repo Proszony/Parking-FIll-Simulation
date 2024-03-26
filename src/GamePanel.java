@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     public parkingCheck parkingCheck = new parkingCheck(this);
     Player player = new Player(this, keyH);
     GetLight getLight = new GetLight(this);
-
+    Cars cars = new Cars(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -78,6 +78,9 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         TileM.draw(g2);
         player.draw(g2);
+        for(int i = 0; i < 5; i++){
+            cars.draw(g2,i);
+        }
         getLight.drawLight(g2);
         g2.dispose();
     }

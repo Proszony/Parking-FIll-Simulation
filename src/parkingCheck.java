@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class parkingCheck {
     GamePanel gp;
 
@@ -5,69 +7,58 @@ public class parkingCheck {
         this.gp = gp;
     }
 
-    public void checkTile(Entity entity) {
-        int entityLX = entity.x + entity.solidArea.x;
-        int entityRX = entity.x + entity.solidArea.x + entity.solidArea.width;
-        int entityTY = entity.y + entity.solidArea.y;
-        int entityBY = entity.y + entity.solidArea.y + entity.solidArea.height;
-
-        int entityLCol = entityLX / gp.tileSize;
-        int entityRCol = entityRX / gp.tileSize;
-        int entityTRow = entityTY / gp.tileSize;
-        int entityBRow = entityBY / gp.tileSize;
-        int TileNum1, TileNum2;
-
-        if (entity.leave_parkingspot == false) {
+    public void checkPark(Entity entity) {
+        int entitySolidX = entity.solidArea.x + entity.solidArea.width;
+        int entitySolidY = entity.y + entity.solidArea.height + 5;
+        int col = entitySolidX / gp.tileSize;
+        int row = entitySolidY / gp.tileSize;
+//        System.out.println("col = " + col + " row = " + row + " tile = " + gp.TileM.mapTileNUM[col][row]);
+        if (!entity.leave_parkingspot) {
             switch (entity.direction) {
-                case "up":
-                    entityTRow = (entityTY - entity.speed) / gp.tileSize;
-                    TileNum1 = gp.TileM.mapTileNUM[entityLCol][entityTRow];
-                    TileNum2 = gp.TileM.mapTileNUM[entityRCol][entityTRow];
-                    if (gp.TileM.tile[TileNum2].parkingspot == true) {
-                        entity.parking = true;
-                        gp.TileM.tile[TileNum2].taken = true;
-
-                    } else {
-                        entity.parking = false;
-                        gp.TileM.tile[TileNum2].taken = false;
-                    }
-                    break;
-                case "down":
-                    entityBRow = (entityBY + entity.speed) / gp.tileSize;
-                    TileNum1 = gp.TileM.mapTileNUM[entityLCol][entityBRow];
-                    TileNum2 = gp.TileM.mapTileNUM[entityRCol][entityBRow];
-                    if (gp.TileM.tile[TileNum2].parkingspot == true) {
-                        entity.parking = true;
-                    } else {
-                        entity.parking = false;
-                        gp.TileM.tile[TileNum2].taken = false;
-                    }
-                    break;
                 case "left":
-                    entityLCol = (entityLX - entity.speed + 15) / gp.tileSize;
-                    TileNum1 = gp.TileM.mapTileNUM[entityLCol][entityTRow];
-                    TileNum2 = gp.TileM.mapTileNUM[entityLCol][entityBRow];
-                    if (gp.TileM.tile[TileNum2].parkingspot == true) {
+                    col = (entitySolidX + 10) / gp.tileSize;
+                    row = entitySolidY / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 5 || gp.TileM.mapTileNUM[col][row] == 4) {
                         entity.parking = true;
-                        gp.TileM.tile[TileNum2].taken = true;
+                        gp.TileM.tile[5].taken = true;
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[TileNum2].taken = false;
+                        gp.TileM.tile[5].taken = false;
                     }
                     break;
                 case "right":
-                    entityRCol = (entityRX + entity.speed - 30) / gp.tileSize;
-                    TileNum1 = gp.TileM.mapTileNUM[entityRCol][entityTRow];
-                    TileNum2 = gp.TileM.mapTileNUM[entityRCol][entityBRow];
-                    if (gp.TileM.tile[TileNum2].parkingspot == true) {
+                    col = (entitySolidX - 15) / gp.tileSize;
+                    row = entitySolidY / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-                        gp.TileM.tile[TileNum2].taken = true;
+                        gp.TileM.tile[5].taken = true;
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[TileNum2].taken = false;
+                        gp.TileM.tile[5].taken = false;
+                    }
+                    break;
+                case "up":
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
+                        entity.parking = true;
+                        gp.TileM.tile[5].taken = true;
+                    } else {
+                        entity.parking = false;
+                        gp.TileM.tile[5].taken = false;
+                    }
+                    break;
+                case "down":
+                    col = (entitySolidX) / gp.tileSize;
+                    row = (entitySolidY + 30) / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
+                        entity.parking = true;
+                        gp.TileM.tile[5].taken = true;
+                    } else {
+                        entity.parking = false;
+                        gp.TileM.tile[5].taken = false;
                     }
                     break;
             }
         }
     }
+
 }
