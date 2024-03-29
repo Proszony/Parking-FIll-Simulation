@@ -53,7 +53,7 @@ public class Cars extends Entity {
         }
 //        System.out.println(Arrays.toString(entry[start_entry]));
         setDeafultValues(i, entry[start_entry][0], entry[start_entry][1], 5, dir);
-        setDeafultValues(0, entry[0][0] + 1070, entry[0][1], 5, dir);
+        setDeafultValues(0, entry[0][0] + 1070, entry[0][1] - 40 , 5, "left");
     }
 
     public void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
@@ -130,25 +130,5 @@ public class Cars extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void draw(Graphics2D g2, int i) {
-        BufferedImage img = null;
-        switch (cars[i].direction) {
-            case "up":
-                img = cars[i].up;
-                break;
-            case "down":
-                img = cars[i].down;
-                break;
-            case "left":
-                img = cars[i].left;
-                break;
-            case "right":
-                img = cars[i].right;
-                break;
-        }
-        g2.drawImage(img, cars[i].x - 24, cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
     }
 }

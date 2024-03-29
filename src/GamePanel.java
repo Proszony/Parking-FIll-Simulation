@@ -38,7 +38,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        carM.check2x2(0);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         TileM.draw(g2);
         player.draw(g2);
         for(int i = cars_parked; i < max_cars_onscreen + cars_parked; i++){
-            cars.draw(g2,i);
+            carM.draw(g2,i);
         }
         getLight.drawLight(g2);
         g2.dispose();
