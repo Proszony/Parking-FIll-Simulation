@@ -14,6 +14,7 @@ public class StartingWindow extends JFrame {
         setSize(920, 665);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
         BufferedImage icon = null;
 
         JButton programStartingButton = new JButton();

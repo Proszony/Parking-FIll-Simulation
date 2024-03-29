@@ -14,9 +14,7 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        //x+48,y+48,16,16
-
-        setDeafultValues(-20, 38, 5, "right");
+        setDeafultValues(-20, 0, 5, "right");
         getPImage();
     }
 

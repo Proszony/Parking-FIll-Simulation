@@ -27,19 +27,19 @@ public class Cars extends Entity {
         String dir;
 
         //    entry 1 (left up) (x,y) = (-15,38) // x - 20
-        entry[0][0] = -15;
+        entry[0][0] = 0;
         entry[0][1] = 38;
         //    entry 2 (right up) (x,y) = (1110,-2) // x + 20
-        entry[1][0] = 1110;
+        entry[1][0] = 1100;
         entry[1][1] = -2;
         //    entry 3 (right down) (x,y) = (1110,618) // x + 20
-        entry[2][0] = 1110;
+        entry[2][0] = 1100;
         entry[2][1] = 618;
         //    entry 4 (left down) (x,y) = (-15, 663) // x - 20
-        entry[3][0] = -15;
+        entry[3][0] = 0;
         entry[3][1] = 663;
         //    entry 5 (left middle) (x,y) = (-15, 373) // x - 20
-        entry[4][0] = -15;
+        entry[4][0] = 0;
         entry[4][1] = 373;
         int start_entry = random.nextInt(5);
         while (start_entry == last_entry){
@@ -51,9 +51,9 @@ public class Cars extends Entity {
         } else {
             dir = "right";
         }
-        System.out.println(Arrays.toString(entry[start_entry]));
+//        System.out.println(Arrays.toString(entry[start_entry]));
         setDeafultValues(i, entry[start_entry][0], entry[start_entry][1], 5, dir);
-
+        setDeafultValues(0, entry[0][0] + 1070, entry[0][1], 5, dir);
     }
 
     public void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
@@ -62,6 +62,7 @@ public class Cars extends Entity {
         cars[i].y = yi;
         cars[i].speed = speedi;
         cars[i].direction = directioni;
+        cars[i].solidArea = new Rectangle(cars[i].x + 18, cars[i].y + 18, 8, 8);
         getCarImage(i);
     }
 
