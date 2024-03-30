@@ -46,8 +46,8 @@ public class Player extends Entity {
         if( x >= 1110){
             x = 1105;
         }
-        if(x <= -15){
-            x = -10;
+        if(x <= 0){
+            x = 0;
         }
     }
 

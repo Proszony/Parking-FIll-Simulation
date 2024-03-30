@@ -9,7 +9,7 @@ public class CarMovement extends Cars {
     public int[][] car2x2 = new int[3][3];
 
     public void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
-        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
+        int col = (cars[i].x + cars[i].solidArea.width + 35) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         System.out.println("col = " + col + " row = " + row);
         car2x2[1][1] = gp.TileM.mapTileNUM[col][row];
@@ -80,18 +80,36 @@ public class CarMovement extends Cars {
         move(i);
     }
 
-    public void move(int i){
-        switch (car2x2[1][1]){
+    public void move(int i) {
+        // poprawic by losowalo czy skreca tylko raz
+        switch (car2x2[1][1]) {
+            case 0:
+                switch (cars[i].direction){
+                    case "down":
+                        cars[i].y += cars[i].speed;
+                        break;
+                }
+                break;
             case 8:
                 cars[i].direction = "right";
                 cars[i].x += cars[i].speed;
                 break;
             case 9:
-                if (car2x2[0][2] == 0) {
-                    cars[i].speed = 0;
+                if(car2x2[1][2] == 0 || car2x2[1][0] == 0){
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else{
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
                 }
-                cars[i].direction = "left";
-                cars[i].x -= cars[i].speed;
+                break;
+            case 17:
+                cars[i].direction = "down";
+                cars[i].y += cars[i].speed;
+                break;
+            case 19:
+                cars[i].direction = "up";
+                cars[i].y -= cars[i].speed;
                 break;
         }
     }
