@@ -9,7 +9,7 @@ public class CarMovement extends Cars {
     public int[][] car2x2 = new int[3][3];
 
     public void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
-        int col = (cars[i].x + cars[i].solidArea.width + 35) / gp.tileSize;
+        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         System.out.println("col = " + col + " row = " + row);
         car2x2[1][1] = gp.TileM.mapTileNUM[col][row];
@@ -81,6 +81,8 @@ public class CarMovement extends Cars {
     }
 
     public void move(int i) {
+        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
+        int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         // poprawic by losowalo czy skreca tylko raz
         switch (car2x2[1][1]) {
             case 0:
@@ -88,6 +90,33 @@ public class CarMovement extends Cars {
                     case "down":
                         cars[i].y += cars[i].speed;
                         break;
+                    case "up":
+                        cars[i].y -= cars[i].speed;
+                        break;
+                    case "left":
+                        cars[i].x -= cars[i].speed;
+                        break;
+                    case "right":
+                        cars[i].x += cars[i].speed;
+                        break;
+                }
+                break;
+            case 1:
+                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // POPRAW AKA ZROB LOSOWOSC
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else{
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
+                }
+                break;
+            case 2:
+                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // TU TEZ
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else{
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
                 }
                 break;
             case 8:
@@ -95,7 +124,7 @@ public class CarMovement extends Cars {
                 cars[i].x += cars[i].speed;
                 break;
             case 9:
-                if(car2x2[1][2] == 0 || car2x2[1][0] == 0){
+                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // I TU
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
                 }else{
