@@ -14,9 +14,7 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        //x+48,y+48,16,16
-
-        setDeafultValues(-20, 38, 5, "right");
+        setDeafultValues(-20, 0, 5, "right");
         getPImage();
     }
 
@@ -29,10 +27,10 @@ public class Player extends Entity {
 
     public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!  // getClass().getResourceAsStream
         try {
-            up = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDN/Blue_JEEP_CLEAN_NORTH_000.png"));
-            down = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDS/Blue_JEEP_CLEAN_SOUTH_000.png"));
-            left = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDW/Blue_JEEP_CLEAN_WEST_000.png"));
-            right = ImageIO.read(new File("res/Cars/JEEP/BLUE_JEEP/SEPARATEDE/Blue_JEEP_CLEAN_EAST_000.png"));
+            up = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDN/Red_JEEP_CLEAN_NORTH_000.png"));
+            down = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDS/Red_JEEP_CLEAN_SOUTH_000.png"));
+            left = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDW/Red_JEEP_CLEAN_WEST_000.png"));
+            right = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDE/Red_JEEP_CLEAN_EAST_000.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,8 +46,8 @@ public class Player extends Entity {
         if( x >= 1110){
             x = 1105;
         }
-        if(x <= -15){
-            x = -10;
+        if(x <= 0){
+            x = 0;
         }
     }
 
