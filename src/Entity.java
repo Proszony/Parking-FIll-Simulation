@@ -10,4 +10,7 @@ public class Entity {
     public Rectangle solidArea;
     public boolean parking = false;
     public boolean leave_parkingspot = false;
+    public int chose_turnLRS = 1;
+    public int chose_turnLR = 0;
+    public boolean turned = false;
 }

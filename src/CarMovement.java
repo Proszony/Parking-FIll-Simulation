@@ -76,6 +76,12 @@ public class CarMovement extends Cars {
 
     public void update(int i) {
         cars[i].solidArea = new Rectangle(cars[i].x + 18, cars[i].y + 18, 8, 8);
+        if(!cars[i].turned){
+            cars[i].chose_turnLRS = 2;//random.nextInt(3);
+            cars[i].chose_turnLR = random.nextInt(100)%2;
+            cars[i].turned = true;
+        }
+        gp.parkingCheck.checkPark(cars[i]);
         check2x2(i);
         move(i);
     }
@@ -84,8 +90,65 @@ public class CarMovement extends Cars {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         // poprawic by losowalo czy skreca tylko raz
+        // skrecianie 3 strony niech szuka nr tile 0 1 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         switch (car2x2[1][1]) {
             case 0:
+                switch (cars[i].direction){
+                    case "down":
+                        if((car2x2[1][0] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                            cars[i].direction = "right";
+                            cars[i].x += cars[i].speed;
+                        }else{
+                            cars[i].y += cars[i].speed;
+                        }
+                        break;
+                    case "up":
+                        cars[i].y -= cars[i].speed;
+                        break;
+                    case "left":
+                        cars[i].x -= cars[i].speed;
+                        break;
+                    case "right":
+                        cars[i].x += cars[i].speed;
+                        break;
+                }
+                break;
+            case 1:
+                if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 0) {
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
+                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 1) {
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                    cars[i].chose_turnLRS = random.nextInt(3);
+                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                    cars[i].direction = "up";
+                    cars[i].y -= cars[i].speed;
+                }else if((car2x2[1][2] == 8 || car2x2[1][0] == 17) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){// POPRAW AKA ZROB LOSOWOSC
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){// POPRAW AKA ZROB LOSOWOSC
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else{
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
+                }
+                break;
+            case 2:
+                if((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 1){
+                    cars[i].direction = "up";
+                    cars[i].y -= cars[i].speed;
+                }else if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){ // TU TEZ
+                    cars[i].direction = "down";
+                    cars[i].y += cars[i].speed;
+                }else{
+                    cars[i].direction = "left";
+                    cars[i].x -= cars[i].speed;
+                }
+                break;
+            case 3:
                 switch (cars[i].direction){
                     case "down":
                         cars[i].y += cars[i].speed;
@@ -101,44 +164,35 @@ public class CarMovement extends Cars {
                         break;
                 }
                 break;
-            case 1:
-                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // POPRAW AKA ZROB LOSOWOSC
-                    cars[i].direction = "down";
-                    cars[i].y += cars[i].speed;
-                }else{
-                    cars[i].direction = "left";
-                    cars[i].x -= cars[i].speed;
-                }
-                break;
-            case 2:
-                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // TU TEZ
-                    cars[i].direction = "down";
-                    cars[i].y += cars[i].speed;
-                }else{
-                    cars[i].direction = "left";
-                    cars[i].x -= cars[i].speed;
-                }
-                break;
             case 8:
-                cars[i].direction = "right";
-                cars[i].x += cars[i].speed;
+                if((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 1){
+                    cars[i].direction = "up";
+                    cars[i].y -= cars[i].speed;
+                }else{
+                    cars[i].direction = "right";
+                    cars[i].x += cars[i].speed;
+                    cars[i].turned = false;
+                }
                 break;
             case 9:
-                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 5){ // I TU
+                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0) { // I TU
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
                 }else{
                     cars[i].direction = "left";
                     cars[i].x -= cars[i].speed;
+                    cars[i].turned = false;
                 }
                 break;
             case 17:
                 cars[i].direction = "down";
                 cars[i].y += cars[i].speed;
+                cars[i].turned = false;
                 break;
             case 19:
                 cars[i].direction = "up";
                 cars[i].y -= cars[i].speed;
+                cars[i].turned = false;
                 break;
         }
     }
