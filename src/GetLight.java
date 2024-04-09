@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 public class GetLight {
     GamePanel gp;
     public int[][] ParkingSpots;
-    public int Light_x,Light_y;
-    public LightTile[] LightTiles;
+    private int Light_x,Light_y;
+    private final LightTile[] LightTiles;
     public GetLight(GamePanel gp){
         this.gp = gp;
         LightTiles = new LightTile[4];
@@ -48,7 +48,7 @@ public class GetLight {
 
         }
     }
-    public void GetLightIMG(){
+    private void GetLightIMG(){
         try {
             LightTiles[0] = new LightTile();
             LightTiles[0].image = ImageIO.read(getClass().getResourceAsStream("/lights/bulb_green_left.png"));
@@ -82,7 +82,7 @@ public class GetLight {
     }
 
     public void drawLight(Graphics2D g2) {
-        if(gp.player.parking){
+        if(gp.player.parking ){
             int tilenum = gp.TileM.mapTileNUM[Light_x/gp.tileSize][Light_y/gp.tileSize];
             if(tilenum == 4){
                 g2.drawImage(LightTiles[3].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
