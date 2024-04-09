@@ -1,12 +1,14 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Random;
 
 public class CarMovement extends Cars {
     public CarMovement(GamePanel gp) {
         super(gp);
     }
-
     public int[][] car2x2 = new int[3][3];
+    private final Random random = new Random();
 
     public void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
@@ -82,6 +84,9 @@ public class CarMovement extends Cars {
             cars[i].turned = true;
         }
         gp.parkingCheck.checkPark(cars[i]);
+        if(checkpark(i)){
+            System.out.println("JD");
+        }
         check2x2(i);
         move(i);
     }
@@ -195,6 +200,31 @@ public class CarMovement extends Cars {
                 cars[i].turned = false;
                 break;
         }
+    }
+
+    private boolean checkpark(int i){
+        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
+        int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
+        switch (cars[i].direction){
+            case "up":
+                if(car2x2[2][1] == 4 && !gp.TileM.tile[4].taken){
+                    for(int j = gp.cars_parked; j < gp.max_cars_onscreen + gp.cars_parked; j++){
+                        if(cars[j].x / gp.tileSize == col-1){
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }
+
+                }
+                break;
+            case "down":
+                if(car2x2[0][1] == 5){
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     public void draw(Graphics2D g2, int i) {

@@ -9,7 +9,7 @@ import java.util.List;
 public class Cars extends Entity {
     GamePanel gp;
     public Entity[] cars;
-    public Random random = new Random();
+    private Random random = new Random();
     public int[][] entry = new int[5][2];
     public int last_entry = 0;
 
