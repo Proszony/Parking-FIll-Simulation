@@ -8,14 +8,14 @@ import java.io.InputStreamReader;
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNUM[][];
+    public int[][] mapTileNUM;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[25];
         mapTileNUM = new int[gp.maxCol][gp.maxRow];
         getTileImage();
-        loadMap("mapfrfr.csv");
+        loadMap("mapfrfrsmol.csv");
     }
 
     public void getTileImage() {
@@ -109,7 +109,7 @@ public class TileManager {
             while (col < gp.maxCol && row < gp.maxRow) {
                 String line = br.readLine();
                 while (col < gp.maxCol) {
-                    String numbers[] = line.split(",");
+                    String[] numbers = line.split(",");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNUM[col][row] = num;
                     col++;

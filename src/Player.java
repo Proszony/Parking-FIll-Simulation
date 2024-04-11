@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.lang.Math;
 
@@ -8,37 +9,51 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
+    Graphics2D g2;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        //x+48,y+48,16,16
-        solidArea = new Rectangle(24, 24, 8, 8);
-        setDeafultValues(-24, 20, 5, "right");
+        setDeafultValues(-20, 0, 5, "right");
         getPImage();
     }
 
     public void setDeafultValues(int xi, int yi, int speedi, String directioni) {
-        x = xi; //-24;
+        x = xi; //0;
         y = yi; //20 + 48*(0); // 24 - 4 -> ruch poziomy
         speed = speedi; //5;
         direction = directioni; //"right";
     }
 
-
-    public void getPImage() {
+    public void getPImage() { // RYSOWAC OBRAZ NA WSPOLRZEDNYCH x-24, y-24 !!!!!!!!!!!!!!!  // getClass().getResourceAsStream
         try {
-            up = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDN/Black_CIVIC_CLEAN_NORTH_000.png"));
-            down = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDS/Black_CIVIC_CLEAN_SOUTH_000.png"));
-            left = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDW/Black_CIVIC_CLEAN_WEST_000.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/player/BLACK_CIVIC/SEPARATEDE/Black_CIVIC_CLEAN_EAST_000.png"));
+            up = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDN/Red_JEEP_CLEAN_NORTH_000.png"));
+            down = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDS/Red_JEEP_CLEAN_SOUTH_000.png"));
+            left = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDW/Red_JEEP_CLEAN_WEST_000.png"));
+            right = ImageIO.read(new File("res/Cars/JEEP/RED_JEEP/SEPARATEDE/Red_JEEP_CLEAN_EAST_000.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void border() {
+        if (y < -2) {
+            y = -2;
+        }
+        if (y > 666) {
+            y = 666;
+        }
+        if( x >= 1110){
+            x = 1105;
+        }
+        if(x <= 0){
+            x = 0;
+        }
+    }
+
     //60 rzedow na mapie (pierwszy = -2)
     public void update() {
+        solidArea = new Rectangle(x+18, y+18, 8, 8);
 //        System.out.println("x = " + x + ", y = " + y);
         if (keyH.upPress) {
             direction = "up";
@@ -54,26 +69,24 @@ public class Player extends Entity {
             leave_parkingspot = false;
         }
         parking = false;
-        gp.parkingCheck.checkTile(this);
+        gp.parkingCheck.checkPark(this);
         if (keyH.leftPress || keyH.rightPress || keyH.upPress || keyH.downPress) {
             if (parking == false) {
                 switch (direction) {
                     case "up":
-                        if (y < -24) {
-                            y = -24;
-                        }
+                        border();
                         y -= speed;
                         break;
                     case "down":
-                        if (y > 938) {
-                            y = 938;
-                        }
+                        border();
                         y += speed;
                         break;
                     case "left":
+                        border();
                         x -= speed;
                         break;
                     case "right":
+                        border();
                         x += speed;
                         break;
                 }
@@ -89,6 +102,9 @@ public class Player extends Entity {
                 }
             }
         }
+    }
+    public void solid(Graphics2D g2){
+        g2.draw(solidArea);
     }
 
     public void draw(Graphics2D g2) {
@@ -108,6 +124,6 @@ public class Player extends Entity {
                 image = right;
                 break;
         }
-        g2.drawImage(image, x, y, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+        g2.drawImage(image, x - 24, y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
     }
 }
