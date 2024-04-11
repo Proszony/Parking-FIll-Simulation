@@ -1,12 +1,12 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Random;
 
 public class CarMovement extends Cars {
     public CarMovement(GamePanel gp) {
         super(gp);
     }
+
     public int[][] car2x2 = new int[3][3];
     private final Random random = new Random();
 
@@ -78,17 +78,32 @@ public class CarMovement extends Cars {
 
     public void update(int i) {
         cars[i].solidArea = new Rectangle(cars[i].x + 18, cars[i].y + 18, 8, 8);
-        if(!cars[i].turned){
-            cars[i].chose_turnLRS = 2;//random.nextInt(3);
-            cars[i].chose_turnLR = random.nextInt(100)%2;
+        if (!cars[i].turned) {
+            cars[i].chose_turnLRS = random.nextInt(3);
+            cars[i].chose_turnLR = random.nextInt(100) % 2;
             cars[i].turned = true;
         }
-        gp.parkingCheck.checkPark(cars[i]);
-        if(checkpark(i)){
-            System.out.println("JD");
-        }
         check2x2(i);
-        move(i);
+        if (checkpark(i)) {
+            park(i);
+            if (cars[i].direction == "up") {
+                System.out.println("SKDAOKDOWA");
+            }
+        } else if (!checkpark(i)) {
+            if (!cars[i].parking) {
+                move(i);
+            }
+        }
+        gp.parkingCheck.checkPark(cars[i]);
+
+        int counter = 0;
+        for (int c = 0; c < 110; c++) {
+            if (cars[c].parking) {
+                counter++;
+            }
+        }
+
+        gp.cars_parked = counter;
     }
 
     public void move(int i) {
@@ -98,12 +113,12 @@ public class CarMovement extends Cars {
         // skrecianie 3 strony niech szuka nr tile 0 1 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         switch (car2x2[1][1]) {
             case 0:
-                switch (cars[i].direction){
+                switch (cars[i].direction) {
                     case "down":
-                        if((car2x2[1][0] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                        if ((car2x2[1][0] == 1 || car2x2[0][0] == 1) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
                             cars[i].direction = "right";
                             cars[i].x += cars[i].speed;
-                        }else{
+                        } else {
                             cars[i].y += cars[i].speed;
                         }
                         break;
@@ -119,42 +134,42 @@ public class CarMovement extends Cars {
                 }
                 break;
             case 1:
-                if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 0) {
+                if (car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLRS == 0) {
                     cars[i].direction = "left";
                     cars[i].x -= cars[i].speed;
-                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 1) {
+                } else if (car2x2[1][2] == 0 && car2x2[2][1] == 2 && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLRS == 1) {
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
-                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                } else if (car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
                     cars[i].chose_turnLRS = random.nextInt(3);
-                }else if(car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
+                } else if (car2x2[1][2] == 0 && car2x2[2][1] == 2 && car2x2[0][1] != 17 && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLRS == 2) {
                     cars[i].direction = "up";
                     cars[i].y -= cars[i].speed;
-                }else if((car2x2[1][2] == 8 || car2x2[1][0] == 17) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){// POPRAW AKA ZROB LOSOWOSC
+                } else if ((car2x2[1][2] == 8 || car2x2[1][0] == 17) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 0) {
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
-                }else if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){// POPRAW AKA ZROB LOSOWOSC
+                } else if ((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 0) {
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
-                }else{
+                } else {
                     cars[i].direction = "left";
                     cars[i].x -= cars[i].speed;
                 }
                 break;
             case 2:
-                if((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 1){
+                if ((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 1) {
                     cars[i].direction = "up";
                     cars[i].y -= cars[i].speed;
-                }else if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0){ // TU TEZ
+                } else if ((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 0) {
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
-                }else{
+                } else {
                     cars[i].direction = "left";
                     cars[i].x -= cars[i].speed;
                 }
                 break;
             case 3:
-                switch (cars[i].direction){
+                switch (cars[i].direction) {
                     case "down":
                         cars[i].y += cars[i].speed;
                         break;
@@ -169,21 +184,29 @@ public class CarMovement extends Cars {
                         break;
                 }
                 break;
+            case 4:
+                cars[i].direction = "right";
+                cars[i].x += cars[i].speed;
+                break;
+            case 5:
+                cars[i].direction = "left";
+                cars[i].x -= cars[i].speed;
+                break;
             case 8:
-                if((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 1){
+                if ((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 1) {
                     cars[i].direction = "up";
                     cars[i].y -= cars[i].speed;
-                }else{
+                } else {
                     cars[i].direction = "right";
                     cars[i].x += cars[i].speed;
                     cars[i].turned = false;
                 }
                 break;
             case 9:
-                if((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x-(col*gp.tileSize) < 1 && cars[i].chose_turnLR == 0) { // I TU
+                if ((car2x2[1][2] == 0 || car2x2[1][0] == 0) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 0) { // I TU
                     cars[i].direction = "down";
                     cars[i].y += cars[i].speed;
-                }else{
+                } else {
                     cars[i].direction = "left";
                     cars[i].x -= cars[i].speed;
                     cars[i].turned = false;
@@ -202,29 +225,70 @@ public class CarMovement extends Cars {
         }
     }
 
-    private boolean checkpark(int i){
+    private boolean checkpark(int i) {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
-        switch (cars[i].direction){
-            case "up":
-                if(car2x2[2][1] == 4 && !gp.TileM.tile[4].taken){
-                    for(int j = gp.cars_parked; j < gp.max_cars_onscreen + gp.cars_parked; j++){
-                        if(cars[j].x / gp.tileSize == col-1){
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
+        boolean parked = false;
 
+        switch (cars[i].direction) {
+            case "up":
+                for (int j = 0; j < 110; j++) {
+                    int col2 = (cars[j].x + cars[j].solidArea.width + 5) / gp.tileSize;
+                    int row2 = (cars[j].y + cars[j].solidArea.height + 5) / gp.tileSize;
+                    if (col - col2 == -1 && row2 == row && cars[j].parking) {
+                        parked = true;
+                        break;
+                    }
                 }
-                break;
-            case "down":
-                if(car2x2[0][1] == 5){
+                if ((car2x2[2][1] == 4 || car2x2[1][1] == 4) && cars[i].y - (row * gp.tileSize) < -2 && cars[i].x - (col * gp.tileSize) > -15  && !parked) {
                     return true;
                 }
                 break;
+            case "right":
+                if ((car2x2[2][1] == 4 || car2x2[1][1] == 4) && cars[i].y - (row * gp.tileSize) < -2 && cars[i].x - (col * gp.tileSize) > -1) {
+                    return true;
+                }
+            case "down":
+                for (int j = 0; j < 110; j++) {
+                    int col2 = (cars[j].x + cars[j].solidArea.width + 5) / gp.tileSize;
+                    int row2 = (cars[j].y + cars[j].solidArea.height + 5) / gp.tileSize;
+                    if (col - col2 == 1 && row2 == row && cars[j].parking) {
+                        parked = true;
+                        break;
+                    }
+                }
+                if ((car2x2[0][1] == 5 || car2x2[1][1] == 5) &&  cars[i].x - (col * gp.tileSize) < 1 && cars[i].y - (row * gp.tileSize) < -2 && !parked) {
+                    return true;
+                }
+                break;
+            case "left":
+                if ((car2x2[0][1] == 5 || car2x2[1][1] == 5) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].y - (row * gp.tileSize) < -2) {
+                    return true;
+                }
         }
         return false;
+    }
+
+    public void park(int i) {
+        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
+        int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
+
+        if (cars[i].y - ((row) * gp.tileSize) < -2) {
+            if (cars[i].direction == "down") {
+                cars[i].direction = "left";
+                cars[i].x -= cars[i].speed;
+            }
+            if (cars[i].direction == "left") {
+                cars[i].x -= cars[i].speed;
+            }
+            if (cars[i].direction == "up") {
+                cars[i].direction = "right";
+                cars[i].x += cars[i].speed;
+            }
+            if (cars[i].direction == "right") {
+                cars[i].x += cars[i].speed;
+            }
+        }
     }
 
     public void draw(Graphics2D g2, int i) {
