@@ -71,11 +71,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         player.update();
-        for(int i = cars_parked; i < max_cars_onscreen + cars_parked; i++){
+        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             carM.update(i);
+            getLight.GetTile(cars.cars[i]);
         }
         getLight.GetTile(player);
-
     }
 
     public void paintComponent(Graphics g) {
@@ -84,10 +84,11 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
         TileM.draw(g2);
         player.draw(g2);
-        for(int i = cars_parked; i < max_cars_onscreen + cars_parked; i++){
+        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             carM.draw(g2,i);
+            getLight.drawLight(g2);
         }
-        getLight.drawLight(g2);
+
         g2.dispose();
     }
 }
