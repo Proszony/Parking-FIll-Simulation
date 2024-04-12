@@ -1,13 +1,14 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
 public class CarMovement extends Cars {
     public CarMovement(GamePanel gp) {
         super(gp);
     }
 
-    public int[][] car2x2 = new int[3][3]; //zwieksz tab o 1 i sprawdz czy w "okregu" jest puste miejsce
+    public int[][] car2x2 = new int[3][3]; //zwieksz tab o 4(jeden bok od srodka) i sprawdz czy w "okregu" jest puste miejsce
+
     private final Random random = new Random();
 
     public void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
@@ -102,8 +103,8 @@ public class CarMovement extends Cars {
                 counter++;
             }
         }
-
         gp.cars_parked = counter;
+
     }
 
     public void move(int i) {

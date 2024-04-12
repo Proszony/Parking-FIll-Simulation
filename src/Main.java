@@ -21,7 +21,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        Stopwatch stopwatch = new Stopwatch(); //okienko stopera
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -35,7 +34,7 @@ public class Main {
         window.pack();
 
         window.setLocationRelativeTo(null);
-        window.setLocation(300, 0);
+        window.setLocation(450, 150);
         window.setVisible(true);
 
         gamePanel.startGameThread();

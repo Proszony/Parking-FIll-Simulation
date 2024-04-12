@@ -10,7 +10,15 @@ import java.util.Random;
 
 public class StartingWindow extends JFrame {
     public StartingWindow() {
+
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(Main.class.getResource("/car-icon.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setTitle("Parking Test Simulation");
+        setIconImage(img);
         setSize(920, 665);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -34,8 +42,7 @@ public class StartingWindow extends JFrame {
             Image scaledImage = playImage.getScaledInstance(920, 665, Image.SCALE_SMOOTH);
             ImageIcon playIcon = new ImageIcon(scaledImage);
             programStartingButton = new JButton(playIcon);
-            //programStartingButton.setBounds(200, 180, 224, 50);
-           // programStartingButton.setFocusable(false);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+
 public class Stopwatch implements ActionListener {
     JFrame frame = new JFrame();
     JButton startButton = new JButton();
@@ -46,7 +47,10 @@ public class Stopwatch implements ActionListener {
         }
     });
 
-    Stopwatch() {
+    private GamePanel gamePanel;
+
+    public Stopwatch(GamePanel gamePanel) {
+        this.gamePanel=gamePanel;
 
         timeLabel.setText(minutes_string + ":" + seconds_string + ":" + seconds_100_string);
         timeLabel.setBounds(0, 0, 225, 130);
@@ -119,7 +123,7 @@ public class Stopwatch implements ActionListener {
         frame.setResizable(false);
         frame.setTitle("Parking Test Simulation Timer");
         frame.setLocationRelativeTo(null);
-        frame.setLocation(30, 30);
+        frame.setLocation(30, 50);
         frame.setVisible(true);
         try {
             frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res/stopwatch/stopwatch_background.png")))));
