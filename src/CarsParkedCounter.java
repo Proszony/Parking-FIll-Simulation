@@ -24,8 +24,8 @@ public class CarsParkedCounter extends JFrame {
 
         try {
             BufferedImage backgroundImage = ImageIO.read(new File("res/stopwatch/parking.png"));
-            backgroundPanel = new BackgroundCarsParked(backgroundImage); // Utwórz niestandardowy panel tła
-            backgroundPanel.setLayout(null); // Ustawienie na null, aby móc ręcznie kontrolować położenie komponentów
+            backgroundPanel = new BackgroundCarsParked(backgroundImage);
+            backgroundPanel.setLayout(null); //aby móc ręcznie kontrolować położenie
             getContentPane().add(backgroundPanel, BorderLayout.CENTER);
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class CarsParkedCounter extends JFrame {
         backgroundPanel.add(free);
         backgroundPanel.add(progressBar);
 
-        this.setSize(330, 250); // Zwiększenie wysokości okna aby zmieścić etykietę "free" i pasek postępu
+        this.setSize(330, 250);
         this.setVisible(true);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
