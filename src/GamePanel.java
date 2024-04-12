@@ -33,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this);
+        Stopwatch stopwatch = new Stopwatch(this);
     }
 
     public void startGameThread() {
@@ -91,4 +93,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
+
+
 }

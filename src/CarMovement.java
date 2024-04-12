@@ -1,12 +1,12 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
 public class CarMovement extends Cars {
     public CarMovement(GamePanel gp) {
         super(gp);
-    }
 
+    }
     public int[][] car2x2 = new int[3][3];
     private final Random random = new Random();
 
@@ -102,8 +102,8 @@ public class CarMovement extends Cars {
                 counter++;
             }
         }
-
         gp.cars_parked = counter;
+
     }
 
     public void move(int i) {
