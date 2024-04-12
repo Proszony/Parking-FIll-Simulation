@@ -16,7 +16,7 @@ public class parkingCheck {
         if (!entity.leave_parkingspot) {
             switch (entity.direction) {
                 case "left":
-                    col = (entitySolidX + 10) / gp.tileSize;
+                    col = (entitySolidX + 8) / gp.tileSize;
                     row = entitySolidY / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 5 || gp.TileM.mapTileNUM[col][row] == 4) {
                         entity.parking = true;

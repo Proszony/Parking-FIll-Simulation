@@ -82,13 +82,21 @@ public class GetLight {
     }
 
     public void drawLight(Graphics2D g2) {
-        if(gp.player.parking ){
+        if(gp.player.parking){
             int tilenum = gp.TileM.mapTileNUM[Light_x/gp.tileSize][Light_y/gp.tileSize];
             if(tilenum == 4){
                 g2.drawImage(LightTiles[3].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
             }
             if(tilenum == 5){
                 g2.drawImage(LightTiles[2].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
+            }
+        }else{
+            int tilenum = gp.TileM.mapTileNUM[Light_x/gp.tileSize][Light_y/gp.tileSize];
+            if(tilenum == 4){
+                g2.drawImage(LightTiles[1].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
+            }
+            if(tilenum == 5){
+                g2.drawImage(LightTiles[0].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);
             }
         }
     }

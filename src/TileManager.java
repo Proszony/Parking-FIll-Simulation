@@ -140,7 +140,6 @@ public class TileManager {
             }
             if (tileNum == 4) {
                 g2.drawImage(tile[23].image, x, y, gp.tileSize, gp.tileSize, null);
-
             }
             col++;
             x += gp.tileSize;
