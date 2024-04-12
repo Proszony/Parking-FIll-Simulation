@@ -86,9 +86,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             carM.draw(g2,i);
-            getLight.drawLight(g2);
         }
-
+        getLight.drawLight(g2);
         g2.dispose();
     }
 }

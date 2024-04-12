@@ -7,7 +7,7 @@ public class CarMovement extends Cars {
         super(gp);
     }
 
-    public int[][] car2x2 = new int[3][3];
+    public int[][] car2x2 = new int[3][3]; //zwieksz tab o 1 i sprawdz czy w "okregu" jest puste miejsce
     private final Random random = new Random();
 
     public void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
@@ -193,7 +193,7 @@ public class CarMovement extends Cars {
                 cars[i].x -= cars[i].speed;
                 break;
             case 8:
-                if ((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x - (col * gp.tileSize) < 1 && cars[i].chose_turnLR == 1) {
+                if ((car2x2[0][1] == 1 || car2x2[0][0] == 1) && cars[i].x - (col * gp.tileSize) > 1 && cars[i].chose_turnLR == 1) {
                     cars[i].direction = "up";
                     cars[i].y -= cars[i].speed;
                 } else {
@@ -226,6 +226,7 @@ public class CarMovement extends Cars {
     }
 
     private boolean checkpark(int i) {
+        // sprawdzac dla 4 (okrąg)
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         boolean parked = false;
