@@ -53,7 +53,7 @@ public class Cars extends Entity {
         }
 //        System.out.println(Arrays.toString(entry[start_entry]));
         setDeafultValues(i, entry[start_entry][0], entry[start_entry][1], 5, dir);
-        setDeafultValues(i, entry[0][0] + 970 + (2*48), entry[0][1] - 40 + (0*48), 5, "left");
+        //setDeafultValues(i, entry[0][0] + 940 + (3*48), entry[0][1] - 40 + (14*48), 5, "left");
     }
 
     public void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
