@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = maxRow * tileSize;
     public final int screenWidth = maxCol * tileSize;
     public int cars_parked = 0; // indicates how many cars have parked
-    public final int max_cars_onscreen = 2; // indicates max number of cars drawn on the screan
+    public final int max_cars_onscreen = 1; // indicates max number of cars drawn on the screan
 
     // FPS
     int FPS = 60;
@@ -74,6 +74,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
+            if(i > 110){
+                break;
+            }
             carM.update(i);
             getLight.GetTile(cars.cars[i]);
         }
@@ -87,6 +90,9 @@ public class GamePanel extends JPanel implements Runnable {
         TileM.draw(g2);
         player.draw(g2);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
+            if(i > 110){
+                break;
+            }
             carM.draw(g2,i);
         }
         getLight.drawLight(g2);
