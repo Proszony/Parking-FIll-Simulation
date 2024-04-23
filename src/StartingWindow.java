@@ -46,7 +46,7 @@ public class StartingWindow extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setIconImage(icon); //Icon display
+        setIconImage(icon);
         programStartingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,7 +54,6 @@ public class StartingWindow extends JFrame {
                 dispose(); // Zamyka to okno po uruchomieniu
             }
         });
-
         add(programStartingButton);
         setVisible(true);
     }

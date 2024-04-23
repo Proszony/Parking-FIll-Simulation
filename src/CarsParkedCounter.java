@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -44,9 +45,9 @@ public class CarsParkedCounter extends JFrame {
         parkedCarsLabel.setForeground(Color.WHITE);
         free.setForeground(Color.WHITE);
 
-        parkedCarsX = 65;
-        parkedCarsY = 55;
-        freeSpotsX = 65;
+        parkedCarsX = 63;
+        parkedCarsY = 60;
+        freeSpotsX = 63;
         freeSpotsY = parkedCarsY + 40; // Pozycja etykiety "free" pod etykietą "parkedCarsLabel"
 
         parkedCarsLabel.setBounds(parkedCarsX, parkedCarsY, 250, 30);
@@ -62,11 +63,20 @@ public class CarsParkedCounter extends JFrame {
         Font font = new Font("SansSerif", Font.BOLD, 22); // Ustawienie nowej czcionki dla tekstu na pasku postępu
         progressBar.setFont(font);
 
+        BasicProgressBarUI ui = new BasicProgressBarUI() {
+            protected Color getSelectionBackground() {
+                return Color.black; // string color over the background
+            }
+            protected Color getSelectionForeground() {
+                return Color.black; // string color over the foreground
+            }
+        };
+        progressBar.setUI(ui);
+
 
         int progressBarX = (330 - 300) / 2 - 8; // Obliczamy położenie X tak, aby pasek postępu był wycentrowany a te -8 centruje
         progressBar.setBounds(progressBarX, parkedCarsY + 80, 300, 50);
 
-        // Add labels first, then progress bar
         backgroundPanel.add(parkedCarsLabel);
         backgroundPanel.add(free);
         backgroundPanel.add(progressBar);
