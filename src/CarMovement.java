@@ -327,21 +327,13 @@ public class CarMovement extends Cars {
     }
 
     public void draw(Graphics2D g2, int i) {
-        BufferedImage img = null;
-        switch (cars[i].direction) {
-            case "up":
-                img = cars[i].up;
-                break;
-            case "down":
-                img = cars[i].down;
-                break;
-            case "left":
-                img = cars[i].left;
-                break;
-            case "right":
-                img = cars[i].right;
-                break;
-        }
+        BufferedImage img = switch (cars[i].direction) {
+            case "up" -> cars[i].up;
+            case "down" -> cars[i].down;
+            case "left" -> cars[i].left;
+            case "right" -> cars[i].right;
+            default -> null;
+        };
         g2.drawImage(img, cars[i].x - 24, cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
     }
 }
