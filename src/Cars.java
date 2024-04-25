@@ -173,5 +173,5 @@ public class Cars extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } // dodac specjalny samochod (np. skreca tylko w lewo)
 }

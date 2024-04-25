@@ -102,10 +102,6 @@ public class CarMovement extends Cars {
             }
         }
         gp.cars_parked = counter;
-
-
-
-
     }
 
     public void move(int i) {
@@ -325,15 +321,14 @@ public class CarMovement extends Cars {
             }
         }
     }
-
-    public void draw(Graphics2D g2, int i) {
-        BufferedImage img = switch (cars[i].direction) {
-            case "up" -> cars[i].up;
-            case "down" -> cars[i].down;
-            case "left" -> cars[i].left;
-            case "right" -> cars[i].right;
-            default -> null;
-        };
-        g2.drawImage(img, cars[i].x - 24, cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
-    }
+//    void draw(Graphics2D g2, int i) { // dodac interfejs do rysowania wszystkiego
+//        BufferedImage img = switch (cars[i].direction) {
+//            case "up" -> cars[i].up;
+//            case "down" -> cars[i].down;
+//            case "left" -> cars[i].left;
+//            case "right" -> cars[i].right;
+//            default -> null;
+//        };
+//        g2.drawImage(img, cars[i].x - 24, cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+//    }
 }
