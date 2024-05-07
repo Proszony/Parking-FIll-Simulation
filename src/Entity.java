@@ -18,9 +18,11 @@ public class Entity extends A_draw {
     boolean get_leaveparkingstop(Entity entity){
         return entity.leave_parkingspot;
     }
-    boolean set_leaveparkingstop(Entity entity, boolean new_value){
-        entity.leave_parkingspot = new_value;
-        return entity.leave_parkingspot;
+    void set_leaveparkingstop_ture(Entity entity){
+        entity.leave_parkingspot = true;
+    }
+    void set_leaveparkingstop_false(Entity entity){
+        entity.leave_parkingspot = false;
     }
     
     @Override
