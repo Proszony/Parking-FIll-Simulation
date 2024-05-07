@@ -113,29 +113,33 @@ public class CarMovement extends Cars {
         // skrecianie 3 strony niech szuka nr tile 0 1 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // SKRECA W LEWOOOOO GITTTTTTT
         switch (car2x2[1][1]){
-            case 19:
+            case 19: // up
+                cars[i].x = col * gp.tileSize;
                 cars[i].direction = "up";
                 cars[i].y -= cars[i].speed;
                 cars[i].turned = false;
                 break;
-            case 17:
+            case 17: // down
+                cars[i].x = col * gp.tileSize;
                 cars[i].direction = "down";
                 cars[i].y += cars[i].speed;
                 cars[i].turned = false;
                 break;
-            case 9:
+            case 9: // left
                 if(car2x2[1][2] == 0 && cars[i].x - (col * gp.tileSize) < 1){
                     if(cars[i].chose_turnLR == 0){
                         turnLEFT(i);
                         switch (cars[i].direction){
                             case "down":
+                                cars[i].x = col * gp.tileSize;
                                 cars[i].y += cars[i].speed;
                                 break;
                             case "left":
                                 cars[i].x -= cars[i].speed;
                                 break;
                         }
-                    }else {cars[i].direction = "left";
+                    }else {
+                        cars[i].direction = "left";
                         cars[i].x -= cars[i].speed;
                     }
                 }else{
@@ -154,12 +158,13 @@ public class CarMovement extends Cars {
                     }
                 }
                 break;
-            case 8:
+            case 8: // right
                 if(car2x2[1][0] == 2 && (col * gp.tileSize) - cars[i].x < 1){
                     if(cars[i].chose_turnLR == 0){
                         turnLEFT(i);
                         switch (cars[i].direction){
                             case "up":
+                                cars[i].x = col * gp.tileSize;
                                 cars[i].y -= cars[i].speed;
                                 break;
                             case "right":
@@ -177,19 +182,35 @@ public class CarMovement extends Cars {
                 }
                 break;
             default:
-                switch (cars[i].direction){
-                    case "up":
-                        cars[i].y -= cars[i].speed;
-                        break;
-                    case "down":
-                        cars[i].y += cars[i].speed;
-                        break;
-                    case "left":
-                        cars[i].x -= cars[i].speed;
-                        break;
-                    case "right":
-                        cars[i].x += cars[i].speed;
-                        break;
+                // 4 - way turn (down -> right)
+                if(car2x2[1][1] == 0 && car2x2[1][0] == 1 && (row * gp.tileSize) - cars[i].y < 1 && Objects.equals(cars[i].direction, "down")){
+                    if(cars[i].chose_turnLRS == 0){
+                        turnLEFT(i);
+                        if(Objects.equals(cars[i].direction, "right")){
+                            cars[i].y = row *gp.tileSize - 10;
+                            cars[i].x += cars[i].speed;
+                        }
+                    }else{
+                        if(Objects.equals(cars[i].direction, "down")){
+                            cars[i].x = col * gp.tileSize;
+                            cars[i].y += cars[i].speed;
+                        }
+                    }
+                }else{
+                    switch (cars[i].direction){
+                        case "up":
+                            cars[i].y -= cars[i].speed;
+                            break;
+                        case "down":
+                            cars[i].y += cars[i].speed;
+                            break;
+                        case "left":
+                            cars[i].x -= cars[i].speed;
+                            break;
+                        case "right":
+                            cars[i].x += cars[i].speed;
+                            break;
+                    }
                 }
         }
     }
@@ -198,7 +219,7 @@ public class CarMovement extends Cars {
         cars[i].chose_turnLRS = random.nextInt(99) % 3;
         cars[i].chose_turnLR = random.nextInt(100) % 2;
 
-        System.out.println("CARS["+(gp.max_cars_onscreen + gp.cars_parked -1)+"] LOSUJEEEE => " + cars[gp.max_cars_onscreen + gp.cars_parked -1].chose_turnLR);
+        //System.out.println("CARS["+(gp.max_cars_onscreen + gp.cars_parked -1)+"] LOSUJEEEE => " + cars[gp.max_cars_onscreen + gp.cars_parked -1].chose_turnLR);
 
     }
 

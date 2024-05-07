@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        //player.update();
+        player.update();
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             if(i > 110){
                 break;
@@ -94,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         TileM.draw(g2);
-        //player.draw(g2);
+        player.draw(g2, player, this);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             if(i > 110){
                 break;

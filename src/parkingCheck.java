@@ -13,7 +13,7 @@ public class parkingCheck {
         int col = entitySolidX / gp.tileSize;
         int row = entitySolidY / gp.tileSize;
 //        System.out.println("col = " + col + " row = " + row + " tile = " + gp.TileM.mapTileNUM[col][row]);
-        if (!entity.leave_parkingspot) {
+        if (!entity.get_leaveparkingstop(entity)) {
             switch (entity.direction) {
                 case "left":
                     col = (entitySolidX + 8) / gp.tileSize;
