@@ -12,6 +12,7 @@ public class Entity extends A_draw {
     private boolean leave_parkingspot = false;
     protected int chose_turnLRS = 1;
     protected int chose_turnLR = 1;
+    protected boolean chose_turn = false;
     protected boolean turned = false;
 
     // GET / SET leave_parkingstop

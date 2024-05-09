@@ -80,11 +80,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            if(i > 110){
-                break;
+            if(i >= 110){
+                continue;
+            }else{
+                carM.update(i);
+                getLight.GetTile(cars.cars[i]);
             }
-            carM.update(i);
-            getLight.GetTile(cars.cars[i]);
         }
         getLight.GetTile(player);
     }
@@ -96,11 +97,12 @@ public class GamePanel extends JPanel implements Runnable {
         TileM.draw(g2);
         player.draw(g2, player, this);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            if(i > 110){
-                break;
+            if(i >= 110){
+                continue;
+            }else {
+                //carM.draw(g2,i);
+                cars.draw(g2, carM.cars[i], this);
             }
-            //carM.draw(g2,i);
-            cars.draw(g2, carM.cars[i], this);
         }
         getLight.drawLight(g2);
         g2.dispose();
