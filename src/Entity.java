@@ -35,6 +35,6 @@ public class Entity extends A_draw {
             case "right" -> entity.right;
             default -> null;
         };
-        g2.drawImage(img, entity.x - 24, entity.y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);   
+        g2.drawImage(img, entity.x - 24, entity.y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
     }
 }// Hermetyzacje dodac

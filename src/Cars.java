@@ -23,7 +23,7 @@ public class Cars extends Entity {
     public void getStartPos(int i) {
 
         String dir;
-
+        // dodac array list wybranych
         //    entry 1 (left up) (x,y) = (-15,38) // x - 20
         entry[0][0] = 0;
         entry[0][1] = 38;
