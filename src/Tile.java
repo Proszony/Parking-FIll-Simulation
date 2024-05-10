@@ -1,8 +1,7 @@
 import java.awt.image.BufferedImage;
 
 public class Tile {
-    public BufferedImage image;
-    public boolean parkingspot = false;
-    public boolean taken = false;
-    public int x;
+    protected BufferedImage image;
+    protected boolean parkingspot = false;
+    protected boolean taken = false;
 }
