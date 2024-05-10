@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = maxRow * tileSize;
     public final int screenWidth = maxCol * tileSize;
     public int cars_parked = 0; // indicates how many cars have parked
-    public final int max_cars_onscreen = 2; // indicates max number of cars drawn on the screan
+    public final int max_cars_onscreen = 5; // indicates max number of cars drawn on the screan
 
     // FPS
     int FPS = 60;
@@ -67,17 +67,27 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
+            } // Sleep ustawic
+            // uniezależnic predkosc od fps (tylko od czasu)
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     public void update() {
-        player.update();
+        //player.update();
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            carM.update(i);
-            getLight.GetTile(cars.cars[i]);
+            if(i >= 110){
+                continue;
+            }else{
+                carM.update(i);
+                getLight.GetTile(cars.cars[i]);
+            }
         }
-        getLight.GetTile(player);
+        //getLight.GetTile(player);
     }
 
     public void paintComponent(Graphics g) {
@@ -85,9 +95,14 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         TileM.draw(g2);
-        player.draw(g2);
+        //  player.draw(g2, player, this);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            carM.draw(g2,i);
+            if(i >= 110){
+                continue;
+            }else {
+                //carM.draw(g2,i);
+                cars.draw(g2, carM.cars[i], this);
+            }
         }
         getLight.drawLight(g2);
         g2.dispose();

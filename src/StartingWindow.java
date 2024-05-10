@@ -50,7 +50,7 @@ public class StartingWindow extends JFrame {
         programStartingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startMainApplication();
+                startMainApplication(); // ODDAC STEROWANIE DO MAIN !!!!
                 dispose(); // Zamyka to okno po uruchomieniu
             }
         });

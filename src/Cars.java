@@ -1,15 +1,13 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 import java.io.File;
-import java.util.List;
 
 public class Cars extends Entity {
     GamePanel gp;
     public Entity[] cars;
-    private Random random = new Random();
+    private final Random random = new Random();
     public int[][] entry = new int[5][2];
     public int last_entry = 0;
 
@@ -25,7 +23,7 @@ public class Cars extends Entity {
     public void getStartPos(int i) {
 
         String dir;
-
+        // dodac array list wybranych
         //    entry 1 (left up) (x,y) = (-15,38) // x - 20
         entry[0][0] = 0;
         entry[0][1] = 38;
@@ -53,7 +51,7 @@ public class Cars extends Entity {
         }
 //        System.out.println(Arrays.toString(entry[start_entry]));
         setDeafultValues(i, entry[start_entry][0], entry[start_entry][1], 5, dir);
-        //setDeafultValues(i, entry[0][0] + 940 + (3*48), entry[0][1] - 40 + (14*48), 5, "left");
+        //setDeafultValues(i, entry[0][0] + 940 + (0*48), entry[0][1] - 40 + (0*48), 5, "left"); // 3 ; 14
     }
 
     public void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
@@ -175,5 +173,5 @@ public class Cars extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } // dodac specjalny samochod (np. skreca tylko w lewo)
 }
