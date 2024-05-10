@@ -94,6 +94,7 @@ public class CarsParkedCounter extends JFrame {
             parkedCarsLabel.setText("Parked Cars: " + parkedCarsCount);
             free.setText("Free spots: " + freeSpots);
             progressBar.setValue(parkedCarsCount);
+
         });
         timer.start();
 
