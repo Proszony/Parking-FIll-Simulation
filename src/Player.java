@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.Math;
 
 public class Player extends Entity {
 
@@ -64,9 +63,10 @@ public class Player extends Entity {
         } else if (keyH.rightPress) {
             direction = "right";
         } else if (keyH.Lpress) {
-            leave_parkingspot = true;
+            set_leaveparkingstop_ture(this);
         } else if (keyH.Ppress) {
-            leave_parkingspot = false;
+            set_leaveparkingstop_false(this);
+            //leave_parkingspot = false;
         }
         parking = false;
         gp.parkingCheck.checkPark(this);
@@ -91,7 +91,7 @@ public class Player extends Entity {
                         break;
                 }
             }
-            if (parking && !leave_parkingspot) {
+            if (parking && !get_leaveparkingstop(this)) {
                 switch (direction) {
                     case "left":
                         direction = "right";
