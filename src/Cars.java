@@ -8,8 +8,8 @@ public class Cars extends Entity {
     GamePanel gp;
     public Entity[] cars;
     private final Random random = new Random();
-    public int[][] entry = new int[5][2];
-    public int last_entry = 0;
+    private final int[][] entry = new int[5][2];
+    private ArrayList<Integer> entry_chosen = new ArrayList<>();
 
     public Cars(GamePanel gp) {
         this.gp = gp;
@@ -18,11 +18,11 @@ public class Cars extends Entity {
             getStartPos(i);
         }
     }
-
-
     public void getStartPos(int i) {
 
         String dir;
+        int start_entry;
+        ArrayList <Integer> shuffle_entry = new ArrayList<>();
         // dodac array list wybranych
         //    entry 1 (left up) (x,y) = (-15,38) // x - 20
         entry[0][0] = 0;
@@ -39,11 +39,19 @@ public class Cars extends Entity {
         //    entry 5 (left middle) (x,y) = (-15, 373) // x - 20
         entry[4][0] = 0;
         entry[4][1] = 373;
-        int start_entry = random.nextInt(5);
-        while (start_entry == last_entry){
-            start_entry = random.nextInt(5);
+        for(int k = 0; k < 5; k++){
+            shuffle_entry.add(k);
         }
-        last_entry = start_entry;
+        Collections.shuffle(shuffle_entry);
+        entry_chosen.addAll(shuffle_entry);
+        for (int l = 0; l < shuffle_entry.size(); l++) {
+            if (entry_chosen.isEmpty() || !entry_chosen.get(entry_chosen.size() - 1).equals(shuffle_entry.get(l))) {
+                entry_chosen.add(shuffle_entry.get(l));
+            }
+        }
+        start_entry = entry_chosen.get(i);
+
+
         if (start_entry == 2 || start_entry == 1) {
             dir = "left";
         } else {
