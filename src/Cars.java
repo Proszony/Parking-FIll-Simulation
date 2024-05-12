@@ -69,6 +69,7 @@ public class Cars extends Entity {
         cars[i].speed = speedi;
         cars[i].direction = directioni;
         cars[i].solidArea = new Rectangle(cars[i].x + 18, cars[i].y + 18, 8, 8);
+        cars[i].bounding_box = new Rectangle(cars[i].x - 48, cars[i].y - 48, gp.tileSize * 3, gp.tileSize * 3);
         getCarImage(i);
     }
 

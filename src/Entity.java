@@ -14,18 +14,21 @@ public class Entity extends A_draw {
     protected int chose_turnLR = 1;
     protected boolean chose_turn = false;
     protected boolean turned = false;
+    protected Rectangle bounding_box;
 
     // GET / SET leave_parkingstop
-    boolean get_leaveparkingstop(Entity entity){
+    boolean get_leaveparkingstop(Entity entity) {
         return entity.leave_parkingspot;
     }
-    void set_leaveparkingstop_ture(Entity entity){
+
+    void set_leaveparkingstop_ture(Entity entity) {
         entity.leave_parkingspot = true;
     }
-    void set_leaveparkingstop_false(Entity entity){
+
+    void set_leaveparkingstop_false(Entity entity) {
         entity.leave_parkingspot = false;
     }
-    
+
     @Override
     void draw(Graphics2D g2, Entity entity, GamePanel gp) {
         BufferedImage img = switch (entity.direction) {
@@ -36,5 +39,9 @@ public class Entity extends A_draw {
             default -> null;
         };
         g2.drawImage(img, entity.x - 24, entity.y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+        g2.setColor(Color.green);
+        if (entity.bounding_box != null) {
+            g2.draw(entity.bounding_box);
+        }
     }
 }// Hermetyzacje dodac
