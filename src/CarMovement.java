@@ -82,6 +82,11 @@ public class CarMovement extends Cars {
 
     public void update(int i) {
         cars[i].solidArea = new Rectangle(cars[i].x + 18, cars[i].y + 18, 8, 8);
+        if (!cars[i].parking) {
+            cars[i].bounding_box = new Rectangle(cars[i].x - 48, cars[i].y - 48, gp.tileSize * 3, gp.tileSize * 3);
+        } else {
+            cars[i].bounding_box = null;
+        }
         if (!cars[i].chose_turn) {
             chose_LRS(i);
         }
