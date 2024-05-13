@@ -15,6 +15,7 @@ public class Entity extends A_draw {
     protected boolean chose_turn = false;
     protected boolean turned = false;
     protected Rectangle bounding_box;
+    private Color box_color = new Color(Color.green.getRGB());
 
     // GET / SET leave_parkingstop
     boolean get_leaveparkingstop(Entity entity) {
@@ -29,6 +30,10 @@ public class Entity extends A_draw {
         entity.leave_parkingspot = false;
     }
 
+    // GET / SET
+    void setBox_color_green(Entity entity){entity.box_color = new Color(Color.green.getRGB());}
+    void setBox_color_red(Entity entity){entity.box_color = new Color(Color.red.getRGB());}
+
     @Override
     void draw(Graphics2D g2, Entity entity, GamePanel gp) {
         BufferedImage img = switch (entity.direction) {
@@ -39,7 +44,7 @@ public class Entity extends A_draw {
             default -> null;
         };
         g2.drawImage(img, entity.x - 24, entity.y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
-        g2.setColor(Color.green);
+        g2.setColor(entity.box_color);
         if (entity.bounding_box != null) {
             g2.draw(entity.bounding_box);
         }
