@@ -4,10 +4,10 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
-    final int defultTileSize = 16; // 16x16 tile
-    final int scale = 3;
+    static final int defultTileSize = 16; // 16x16 tile
+    static final int scale = 3;
     final int p_scale = 3;
-    public final int tileSize = defultTileSize * scale;
+    public static final int tileSize = defultTileSize * scale; // zrobic static czy w klasie entity zrobic Gamepanel gp; i dac super reszcie dziedziczacych klas
     public final int PlayerSize = defultTileSize * p_scale;
     public final int maxCol = 24; //32
     public final int maxRow = 15; //21
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-        CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this);
+        CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
         Stopwatch stopwatch = new Stopwatch(this);
     }
 

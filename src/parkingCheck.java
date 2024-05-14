@@ -18,10 +18,10 @@ public class parkingCheck {
                     row = entitySolidY / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 5 || gp.TileM.mapTileNUM[col][row] == 4) {
                         entity.parking = true;
-                        gp.TileM.tile[5].taken = true;
+
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[5].taken = false;
+                        
                     }
                     break;
                 case "right":
@@ -29,19 +29,19 @@ public class parkingCheck {
                     row = entitySolidY / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-                        gp.TileM.tile[5].taken = true;
+
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[5].taken = false;
+                        
                     }
                     break;
                 case "up":
                     if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-                        gp.TileM.tile[5].taken = true;
+
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[5].taken = false;
+                        
                     }
                     break;
                 case "down":
@@ -49,10 +49,10 @@ public class parkingCheck {
                     row = (entitySolidY + 30) / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-                        gp.TileM.tile[5].taken = true;
+
                     } else {
                         entity.parking = false;
-                        gp.TileM.tile[5].taken = false;
+                        
                     }
                     break;
             }
