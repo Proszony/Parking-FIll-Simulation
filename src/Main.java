@@ -8,7 +8,13 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new StartingWindow(); // Wyświetla te takie pierwsze startowe
+                StartingWindow startingWindow = new StartingWindow(new StartListener() {
+                    @Override
+                    public void onStart() {
+                        startApplication();
+                    }
+                });
+                startingWindow.setVisible(true); // Display the starting window
             }
         });
     }
@@ -24,15 +30,12 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-
         window.setTitle("Parking Test Simulation");
- 
         window.setIconImage(img);
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
         window.pack();
-
         window.setLocationRelativeTo(null);
         window.setLocation(450, 50);
         window.setVisible(true);
