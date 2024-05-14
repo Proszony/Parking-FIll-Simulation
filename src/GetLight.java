@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class GetLight {
+public class GetLight extends LightTile{
     GamePanel gp;
     public int[][] ParkingSpots;
     private int Light_x,Light_y;

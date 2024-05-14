@@ -11,14 +11,14 @@ public class Cars extends Entity {
     private final int[][] entry = new int[5][2];
     private ArrayList<Integer> entry_chosen = new ArrayList<>();
 
-    public Cars(GamePanel gp) {
+    protected Cars(GamePanel gp) {
         this.gp = gp;
         cars = new Entity[110];
         for (int i = 0; i < 110; i++) {
             getStartPos(i);
         }
     }
-    public void getStartPos(int i) {
+    private void getStartPos(int i) {
 
         String dir;
         int start_entry;
@@ -62,7 +62,7 @@ public class Cars extends Entity {
         //setDeafultValues(i, entry[0][0] + 940 + (0*48), entry[0][1] - 40 + (0*48), 5, "left"); // 3 ; 14
     }
 
-    public void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
+    private void setDeafultValues(int i, int xi, int yi, int speedi, String directioni) {
         cars[i] = new Entity();
         cars[i].x = xi;
         cars[i].y = yi;
@@ -73,8 +73,8 @@ public class Cars extends Entity {
         getCarImage(i);
     }
 
-    public void getCarImage(int i) {
-        int png_num = random.nextInt(10);
+    private void getCarImage(int i) {
+        int png_num = random.nextInt(20) % 11;
         String[][] path_diretion = new String[][]{{"SEPARATEDE", "EAST"}, {"SEPARATEDN", "NORTH"}, {"SEPARATEDS", "SOUTH"}, {"SEPARATEDW", "WEST"}};
         String path_carbrand;
         String path_color;
@@ -173,12 +173,24 @@ public class Cars extends Entity {
                 full_path[2] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[2][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[2][1] + end_path;
                 full_path[3] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[3][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[3][1] + end_path;
                 break;
+            case 10:
+                path_carbrand = "MICRO";
+                path_color_lower = "Magenta";
+                path_color = "Magenta";
+                full_path[0] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[0][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[0][1] + end_path;
+                full_path[1] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[1][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[1][1] + end_path;
+                full_path[2] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[2][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[2][1] + end_path;
+                full_path[3] = path + path_carbrand + "/" + path_color + "_" + path_carbrand + "/" + path_diretion[3][0] + "/" + path_color_lower + "_" + path_carbrand + "_CLEAN_" + path_diretion[3][1] + end_path;
+                break;
         }
         try {
             cars[i].up = ImageIO.read(new File(full_path[1]));
             cars[i].down = ImageIO.read(new File(full_path[2]));
             cars[i].left = ImageIO.read(new File(full_path[3]));
             cars[i].right = ImageIO.read(new File(full_path[0]));
+            if(png_num == 10){
+                setNo_right_truns_true(cars[i]);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

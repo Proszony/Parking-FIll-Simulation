@@ -8,10 +8,10 @@ import java.io.IOException;
 
 public class CarsParkedCounter extends JFrame {
 
-    private JLabel parkedCarsLabel;
-    private JLabel free;
+    private final JLabel parkedCarsLabel;
+    private final JLabel free;
     private BackgroundCarsParked backgroundPanel;
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
     public int parkedCarsCount;
     public int freeSpots;
 

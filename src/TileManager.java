@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class TileManager {
+public class TileManager extends Tile{
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNUM;
@@ -34,13 +34,13 @@ public class TileManager {
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/parking4.png"));
-            tile[4].parkingspot = true;
-            tile[4].taken = false;
+            setParkingspot_ture(tile[4]);
+            //tile[4].parkingspot = true;
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/parking5.png"));
-            tile[5].parkingspot = true;
-            tile[5].taken = false;
+            setParkingspot_ture(tile[5]);
+            //tile[5].sparkingspot = true;
 
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/parking6.png"));
