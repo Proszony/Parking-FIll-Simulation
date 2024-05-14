@@ -9,8 +9,14 @@ import java.io.IOException;
 import java.util.Random;
 
 public class StartingWindow extends JFrame {
-    public StartingWindow() {
+    private StartListener startListener;
 
+    public StartingWindow(StartListener startListener) {
+        this.startListener = startListener;
+        initializeUI();
+    }
+
+    private void initializeUI() {
         BufferedImage img = null;
         try {
             img = ImageIO.read(Main.class.getResource("/car-icon.png"));
@@ -26,15 +32,14 @@ public class StartingWindow extends JFrame {
         BufferedImage icon = null;
 
         JButton programStartingButton = new JButton();
-        //getting random number
+        // Getting random number
         Random random = new Random();
         int n = random.nextInt(3);
         String path = "";
         try {
-            if(n == 2){
+            if (n == 2) {
                 path = "res/TIPSY_DRIVING_SIM_V026.png";
-            }
-            else {
+            } else {
                 path = "res/start.jpg";
             }
             BufferedImage playImage = ImageIO.read(new File(path));
@@ -50,15 +55,12 @@ public class StartingWindow extends JFrame {
         programStartingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startMainApplication(); // ODDAC STEROWANIE DO MAIN !!!!
-                dispose(); // Zamyka to okno po uruchomieniu
+                if (startListener != null) {
+                    startListener.onStart(); // Notify listener to start the main application
+                }
+                dispose(); // Close this window after starting the main application
             }
         });
         add(programStartingButton);
-        setVisible(true);
-    }
-
-    private void startMainApplication() {
-        Main.startApplication();
     }
 }
