@@ -99,12 +99,15 @@ public class CarMovement extends Cars {
             if (!cars[i].parking) {
                 border(i);
                 for (int j = 0; j < gp.max_cars_onscreen + gp.cars_parked; j++) {
-                    if (j != i) {
-                        if (collision_check(cars[i], cars[j])) {
-                            System.out.println("Car[" + i + "] x:" + cars[i].x + " y:" + cars[i].y + " collides with Car[" + j + "] x:" + cars[j].x + " y:" + cars[j].y);
-                            setBox_color_red(cars[i]);
-                            setBox_color_red(cars[j]);
-                            break;
+                    if(j >= 110) continue;
+                    else{
+                        if (j != i) {
+                            if (collision_check(cars[i], cars[j])) {
+                                System.out.println("Car[" + i + "] x:" + cars[i].x + " y:" + cars[i].y + " collides with Car[" + j + "] x:" + cars[j].x + " y:" + cars[j].y);
+                                setBox_color_red(cars[i]);
+                                setBox_color_red(cars[j]);
+                                break;
+                            }
                         }
                     }
                 }
@@ -120,20 +123,6 @@ public class CarMovement extends Cars {
             }
         }
         gp.cars_parked = counter;
-//        for(int j = 0; j < gp.cars_parked + gp.max_cars_onscreen; j++){
-//            for(int k = 0; k < gp.cars_parked + gp.max_cars_onscreen; k++){
-//                if(j != k){
-//                    if(collision_check(cars[k], cars[j])){
-//                        setBox_color_red(cars[k]);
-//                        setBox_color_red(cars[j]);
-//                        break;
-//                    } else {
-//                        setBox_color_green(cars[k]);
-//                        setBox_color_green(cars[j]);
-//                    }
-//                }
-//            }
-//        }
     }
 
     private void move(int i) {
