@@ -17,6 +17,7 @@ public class Entity extends A_draw implements Collisions {
     private boolean no_right_truns = false;
     protected Rectangle bounding_box;
     private Color box_color = new Color(Color.green.getRGB());
+    public int type;
 
     // GET / SET leave_parkingstop
     boolean get_leaveparkingstop(Entity entity) {

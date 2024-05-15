@@ -37,7 +37,7 @@ public class Main {
         window.add(gamePanel);
         window.pack();
         window.setLocationRelativeTo(null);
-        window.setLocation(450, 50);
+        window.setLocation(365,125);
         window.setVisible(true);
 
         gamePanel.startGameThread();

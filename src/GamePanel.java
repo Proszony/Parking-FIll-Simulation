@@ -14,6 +14,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = maxRow * tileSize;
     public final int screenWidth = maxCol * tileSize;
     public int cars_parked = 0; // indicates how many cars have parked
+    public int parked_blackCivic = 0;
+    public int parked_greenCivic = 0;
+    public int parked_blueCivic = 0;
+    public int parked_magentaCivic = 0;
+    public int parked_yellowCivic = 0;
+    public int parked_blueJeep = 0;
+    public int parked_greenJeep = 0;
+    public int parked_blackJeep = 0;
+    public int parked_redJeep = 0;
+    public int parked_yellowJeep = 0;
+    public int parked_micro = 0;
     public final int max_cars_onscreen = 5; // indicates max number of cars drawn on the screan
 
     // FPS
@@ -35,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
         Stopwatch stopwatch = new Stopwatch(this);
+        Histogram histogram = new Histogram("Types of cars", this);
     }
 
     public void startGameThread() {
@@ -79,15 +91,41 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         //player.update();
-        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            if(i >= 110){
+//        parked_blackCivic = 0;
+//        parked_greenCivic = 0;
+//        parked_blueCivic = 0;
+//        parked_magentaCivic = 0;
+//        parked_yellowCivic = 0;
+//        parked_blueJeep = 0;
+//        parked_greenJeep = 0;
+//        parked_blackJeep = 0;
+//        parked_redJeep = 0;
+//        parked_yellowJeep = 0;
+//        parked_micro = 0;
+
+        for (int i = 0; i < max_cars_onscreen + cars_parked; i++) {
+            if (i >= 110) {
                 continue;
-            }else{
+            } else {
                 carM.update(i);
                 getLight.GetTile(cars.cars[i]);
+                switch (cars.cars[i].type) {
+                    case 0: parked_blackCivic++; break;
+                    case 1: parked_greenCivic++; break;
+                    case 2: parked_blueCivic++; break;
+                    case 3: parked_magentaCivic++; break;
+                    case 4: parked_yellowCivic++; break;
+                    case 5: parked_blueJeep++; break;
+                    case 6: parked_greenJeep++; break;
+                    case 7: parked_blackJeep++; break;
+                    case 8: parked_redJeep++; break;
+                    case 9: parked_yellowJeep++; break;
+                    case 10: parked_micro++; break;
+                }
             }
         }
         //getLight.GetTile(player);
+
     }
 
     public void paintComponent(Graphics g) {
