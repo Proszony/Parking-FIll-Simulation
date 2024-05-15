@@ -117,7 +117,7 @@ public class Histogram extends JFrame {
                 "Black Jeep",
                 "Red Jeep",
                 "Yellow Jeep",
-                "Micro"
+                "Magenta Micro"
         };
 
         int[] carCounts = {
@@ -135,10 +135,12 @@ public class Histogram extends JFrame {
                 // Additional car counts if needed
         };
 
-        for (int i = 0; i < progressBars.length; i++) {
+        for (int i = 0; i < carCounts.length; i++) {
             try {
                 progressBars[i].setValue(carCounts[i]);
+
                 progressBars[i].setString(carTypes[i] + ": " + carCounts[i]);
+
             } catch (IndexOutOfBoundsException e) {
                 // Handle the exception, for example:
                 System.err.println("Warning: Car type data exceeds available car types. Skipping element: " + i);

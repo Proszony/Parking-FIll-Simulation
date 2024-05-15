@@ -108,19 +108,21 @@ public class GamePanel extends JPanel implements Runnable {
                 continue;
             } else {
                 carM.update(i);
-                getLight.GetTile(cars.cars[i]);
-                switch (cars.cars[i].type) {
-                    case 0: parked_blackCivic++; break;
-                    case 1: parked_greenCivic++; break;
-                    case 2: parked_blueCivic++; break;
-                    case 3: parked_magentaCivic++; break;
-                    case 4: parked_yellowCivic++; break;
-                    case 5: parked_blueJeep++; break;
-                    case 6: parked_greenJeep++; break;
-                    case 7: parked_blackJeep++; break;
-                    case 8: parked_redJeep++; break;
-                    case 9: parked_yellowJeep++; break;
-                    case 10: parked_micro++; break;
+//                getLight.GetTile(cars.cars[i]);
+                if(!cars.getCounted(cars.cars[i])){  // PARKING CHECKKKKK NAPRAWWWWW!!!!!!!!!!!!!!!!!!!!!!
+                    switch (cars.cars[i].type) {
+                        case 0: parked_blackCivic++; cars.setCounted_true(cars.cars[i]); break;
+                        case 1: parked_greenCivic++; cars.setCounted_true(cars.cars[i]); break;
+                        case 2: parked_blueCivic++; cars.setCounted_true(cars.cars[i]); break;
+                        case 3: parked_magentaCivic++; cars.setCounted_true(cars.cars[i]); break;
+                        case 4: parked_yellowCivic++; cars.setCounted_true(cars.cars[i]); break;
+                        case 5: parked_blueJeep++; cars.setCounted_true(cars.cars[i]); break;
+                        case 6: parked_greenJeep++; cars.setCounted_true(cars.cars[i]); break;
+                        case 7: parked_blackJeep++; cars.setCounted_true(cars.cars[i]); break;
+                        case 8: parked_redJeep++; cars.setCounted_true(cars.cars[i]); break;
+                        case 9: parked_yellowJeep++; cars.setCounted_true(cars.cars[i]); break;
+                        case 10: parked_micro++; cars.setCounted_true(cars.cars[i]); break;
+                    }
                 }
             }
         }

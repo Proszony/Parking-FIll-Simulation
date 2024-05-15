@@ -18,6 +18,7 @@ public class Entity extends A_draw implements Collisions {
     protected Rectangle bounding_box;
     private Color box_color = new Color(Color.green.getRGB());
     public int type;
+    private boolean counted;
 
     // GET / SET leave_parkingstop
     boolean get_leaveparkingstop(Entity entity) {
@@ -45,12 +46,14 @@ public class Entity extends A_draw implements Collisions {
     boolean getNo_right_truns(Entity entity){
         return entity.no_right_truns;
     }
-    void setNo_right_truns_false(Entity entity){
-        entity.no_right_truns = false;
-    }
+//    void setNo_right_truns_false(Entity entity){ entity.no_right_truns = false; }
     void setNo_right_truns_true(Entity entity){
         entity.no_right_truns = true;
     }
+
+    // GET / SET counted
+    void setCounted_true(Entity entity){ entity.counted = true;}
+    boolean getCounted(Entity entity){ return entity.counted;}
 
     @Override
     void draw(Graphics2D g2, Entity entity, GamePanel gp) {
