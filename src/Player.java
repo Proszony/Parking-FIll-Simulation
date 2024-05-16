@@ -69,7 +69,7 @@ public class Player extends Entity {
             //leave_parkingspot = false;
         }
         parking = false;
-        gp.parkingCheck.checkPark(this);
+        checkPark(this, gp);
         if (keyH.leftPress || keyH.rightPress || keyH.upPress || keyH.downPress) {
             if (parking == false) {
                 switch (direction) {

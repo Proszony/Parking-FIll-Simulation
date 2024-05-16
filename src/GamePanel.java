@@ -21,7 +21,6 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager TileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    public parkingCheck parkingCheck = new parkingCheck(this);
     Player player = new Player(this, keyH);
     GetLight getLight = new GetLight(this);
     Cars cars = new Cars(this);

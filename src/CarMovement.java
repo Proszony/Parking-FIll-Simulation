@@ -5,7 +5,7 @@ import java.util.Random;
 public class CarMovement extends Cars {
     public CarMovement(GamePanel gp) {
         super(gp);
-    }
+    } // PARKING CHECKKKKK NAPRAWWWWW!!!!!!!!!!!!!!!!!!!!!!
 
     public int[][] car2x2 = new int[3][3]; //zwieksz tab o 4(jeden bok od srodka) i sprawdz czy w "okregu" jest puste miejsce
 
@@ -114,7 +114,7 @@ public class CarMovement extends Cars {
                 move(i);
             }
         }
-        gp.parkingCheck.checkPark(cars[i]);
+        checkPark(cars[i], gp);
 
         int counter = 0;
         for (int c = 0; c < 110; c++) {

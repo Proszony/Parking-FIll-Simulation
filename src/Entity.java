@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Entity extends A_draw implements Collisions {
+public class Entity extends A_draw implements Collisions, ParkingCheck{
 
     protected int x = 0, y = 0;
     protected int speed;
@@ -120,5 +120,60 @@ public class Entity extends A_draw implements Collisions {
             return false;
         }
     }
+    
+    // Parking Checks
 
+
+    @Override
+    public void checkPark(Entity entity, GamePanel gp) {
+        int entitySolidX = entity.x + entity.solidArea.width + 5;
+        int entitySolidY = entity.y + entity.solidArea.height + 5;
+        int col = entitySolidX / gp.tileSize;
+        int row = entitySolidY / gp.tileSize;
+//        System.out.println("col = " + col + " row = " + row + " tile = " + gp.TileM.mapTileNUM[col][row]);
+        if (!entity.get_leaveparkingstop(entity)) {
+            switch (entity.direction) {
+                case "left":
+                    col = (entitySolidX + 30) / gp.tileSize;
+                    row = entitySolidY / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 5 || gp.TileM.mapTileNUM[col][row] == 4) {
+                        entity.parking = true;
+
+                    } else {
+                        entity.parking = false;
+
+                    }
+                    break;
+                case "right":
+                    col = (entitySolidX - 8) / gp.tileSize;
+                    row = entitySolidY / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
+                        entity.parking = true;
+
+                    } else {
+                        entity.parking = false;
+
+                    }
+                    break;
+                case "up":
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
+                        entity.parking = true;
+
+                    } else {
+                        entity.parking = false;
+
+                    }
+                    break;
+                case "down":
+                    col = (entitySolidX) / gp.tileSize;
+                    row = (entitySolidY + 30) / gp.tileSize;
+                    if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
+                        entity.parking = true;
+                    } else {
+                        entity.parking = false;
+                    }
+                    break;
+            }
+        }
+    }
 }// Hermetyzacje dodac
