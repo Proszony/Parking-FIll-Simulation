@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int parked_redJeep = 0;
     public int parked_yellowJeep = 0;
     public int parked_micro = 0;
-    public final int max_cars_onscreen = 5; // indicates max number of cars drawn on the screan
+    public static int max_cars_onscreen; // indicates max number of cars drawn on the screan
 
     // FPS
     int FPS = 60;
@@ -47,6 +47,9 @@ public class GamePanel extends JPanel implements Runnable {
         CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
         Stopwatch stopwatch = new Stopwatch(this);
         Histogram histogram = new Histogram("Types of cars", this);
+    }
+    public static void setMaxCarsOnScreen(int value) {
+        max_cars_onscreen = value;
     }
 
     public void startGameThread() {
