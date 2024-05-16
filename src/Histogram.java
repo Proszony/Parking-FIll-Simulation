@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Histogram extends JFrame {
 
     protected JLabel parkedCarsLabel;
+    protected JLabel parkedCarsLabel1;
     private BackgroundCarsParked backgroundPanel;
     private JProgressBar[] progressBars;
     private GamePanel gamePanel;
@@ -25,7 +26,7 @@ public class Histogram extends JFrame {
 
     private void initializeBackgroundPanel() {
         try {
-            BufferedImage backgroundImage = ImageIO.read(new File("res/stopwatch/parking.png"));
+            BufferedImage backgroundImage = ImageIO.read(new File("res/math.jpg"));
             backgroundPanel = new BackgroundCarsParked(backgroundImage);
             backgroundPanel.setLayout(null); // To manually control positions
             getContentPane().add(backgroundPanel, BorderLayout.CENTER);
@@ -37,15 +38,22 @@ public class Histogram extends JFrame {
     private void initializeLabels() {
         parkedCarsLabel = new JLabel("CAR TYPES");
 
-        Font labelFont = new Font("Comic Sans MS", Font.BOLD, 32);
+        Font labelFont = new Font("Comic Sans MS", Font.BOLD, 44);
         parkedCarsLabel.setFont(labelFont);
-        parkedCarsLabel.setForeground(Color.WHITE);
+        parkedCarsLabel.setForeground(Color.BLACK);
 
-        int parkedCarsX = 80;
-        int parkedCarsY = 45;
+        int parkedCarsX = 44;
+        int parkedCarsY = 53;
 
-        parkedCarsLabel.setBounds(parkedCarsX, parkedCarsY, 250, 30);
+        parkedCarsLabel.setBounds(parkedCarsX, parkedCarsY, 250, 50);
         backgroundPanel.add(parkedCarsLabel);
+
+        parkedCarsLabel1 = new JLabel("CAR TYPES");
+        parkedCarsLabel1.setFont(labelFont);
+        parkedCarsLabel1.setForeground(Color.WHITE);
+
+        parkedCarsLabel1.setBounds(parkedCarsX+3, parkedCarsY+3, 250, 50);
+        backgroundPanel.add(parkedCarsLabel1);
     }
 
     private void initializeProgressBars() {
