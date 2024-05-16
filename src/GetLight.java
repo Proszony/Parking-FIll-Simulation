@@ -9,7 +9,7 @@ public class GetLight extends LightTile{
     GamePanel gp;
     public int[][] ParkingSpots;
     private int Light_x,Light_y;
-    private final LightTile[] LightTiles;
+    private LightTile[] LightTiles;
     public GetLight(GamePanel gp){
         this.gp = gp;
         LightTiles = new LightTile[4];
@@ -44,9 +44,7 @@ public class GetLight extends LightTile{
             }
             br.close();
 
-        } catch (Exception e) {
-
-        }
+        } catch (Exception ignored) {}
     }
     private void GetLightIMG(){
         try {
@@ -81,8 +79,8 @@ public class GetLight extends LightTile{
         }
     }
 
-    public void drawLight(Graphics2D g2) {
-        if(gp.player.parking){
+    public void drawLight(Graphics2D g2, Entity entity) {
+        if(entity.parking){
             int tilenum = gp.TileM.mapTileNUM[Light_x/gp.tileSize][Light_y/gp.tileSize];
             if(tilenum == 4){
                 g2.drawImage(LightTiles[3].image, Light_x, Light_y, gp.tileSize, gp.tileSize, null);

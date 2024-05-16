@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Entity extends A_draw implements Collisions, ParkingCheck{
+public class Entity extends A_draw implements Collisions, ParkingCheck {
 
     protected int x = 0, y = 0;
     protected int speed;
@@ -12,9 +12,10 @@ public class Entity extends A_draw implements Collisions, ParkingCheck{
     private boolean leave_parkingspot = false;
     protected int chose_turnLRS = 1;
     protected int chose_turnLR = 1;
-    protected boolean chose_turn = false;
-    protected boolean turned = false;
+    private boolean chose_turn = false;
+    private boolean turned = false;
     private boolean no_right_truns = false;
+    private int type;
     protected Rectangle bounding_box;
     private Color box_color = new Color(Color.green.getRGB());
 
@@ -41,16 +42,51 @@ public class Entity extends A_draw implements Collisions, ParkingCheck{
     }
 
     // GET / SET if able to trun right
-    boolean getNo_right_truns(Entity entity){
+    boolean getNo_right_truns(Entity entity) {
         return entity.no_right_truns;
     }
-    void setNo_right_truns_false(Entity entity){
+
+    void setNo_right_truns_false(Entity entity) {
         entity.no_right_truns = false;
     }
-    void setNo_right_truns_true(Entity entity){
+
+    void setNo_right_truns_true(Entity entity) {
         entity.no_right_truns = true;
     }
 
+    // GET / SET type
+    void setType(Entity entity, int type) {
+        if (type >= 0 && type <= 11) {
+            entity.type = type;
+        } else {
+            entity.type = -1;
+        }
+    }
+
+    // GET / SET Chose_turn
+    void setChose_turn_true(Entity entity) {
+        entity.chose_turn = true;
+    }
+
+    void setChose_turn_false(Entity entity) {
+        entity.chose_turn = false;
+    }
+    boolean getChose_turn(Entity entity){
+        return entity.chose_turn;
+    }
+
+    // GET / SET turned
+    void setTurned_true(Entity entity){
+        entity.turned = true;
+    }
+    void setTurned_false(Entity entity){
+        entity.turned = false;
+    }
+    boolean getTurned(Entity entity){
+        return entity.turned;
+    }
+
+    // DRAWING
     @Override
     void draw(Graphics2D g2, Entity entity, GamePanel gp) {
         BufferedImage img = switch (entity.direction) {
@@ -68,7 +104,6 @@ public class Entity extends A_draw implements Collisions, ParkingCheck{
     }
 
     // COLLISIONS
-
     @Override
     public boolean collision_check(Entity entity1, Entity entity2) {
 //        switch (entity1.direction) {
@@ -114,16 +149,14 @@ public class Entity extends A_draw implements Collisions, ParkingCheck{
 //                break;
 //
 //        }
-        if(entity1.bounding_box.intersects(entity2.bounding_box) && ((Math.abs(entity1.y - entity2.y) < 5) || (Math.abs(entity2.x - entity1.x) < 5))){
+        if (entity1.bounding_box.intersects(entity2.bounding_box) && ((Math.abs(entity1.y - entity2.y) < 5) || (Math.abs(entity2.x - entity1.x) < 5))) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
-    
+
     // Parking Checks
-
-
     @Override
     public void checkPark(Entity entity, GamePanel gp) {
         int entitySolidX = entity.x + entity.solidArea.width + 5;
@@ -176,4 +209,5 @@ public class Entity extends A_draw implements Collisions, ParkingCheck{
             }
         }
     }
+
 }// Hermetyzacje dodac

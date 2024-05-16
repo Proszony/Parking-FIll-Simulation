@@ -4,10 +4,10 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
-    static final int defultTileSize = 16; // 16x16 tile
-    static final int scale = 3;
+    final int defultTileSize = 16; // 16x16 tile
+    final int scale = 3;
     final int p_scale = 3;
-    public static final int tileSize = defultTileSize * scale; // zrobic static czy w klasie entity zrobic Gamepanel gp; i dac super reszcie dziedziczacych klas
+    public final int tileSize = defultTileSize * scale; // zrobic static czy w klasie entity zrobic Gamepanel gp; i dac super reszcie dziedziczacych klas
     public final int PlayerSize = defultTileSize * p_scale;
     public final int maxCol = 24; //32
     public final int maxRow = 15; //21
@@ -21,10 +21,11 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager TileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyH);
+    //Player player = new Player(this, keyH);
     GetLight getLight = new GetLight(this);
     Cars cars = new Cars(this);
     CarMovement carM = new CarMovement(this);
+    ParkingLights parkingLights = new ParkingLights(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -83,7 +84,8 @@ public class GamePanel extends JPanel implements Runnable {
                 continue;
             }else{
                 carM.update(i);
-                getLight.GetTile(cars.cars[i]);
+                parkingLights.lights_update(carM.cars[i]);
+//                getLight.GetTile(carM.cars[i]);
             }
         }
         //getLight.GetTile(player);
@@ -93,7 +95,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        TileM.draw(g2);
+        TileM.draw(g2,this, TileM.mapTileNUM, TileM.tile);
+        //TileM.draw(g2);
         //  player.draw(g2, player, this);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             if(i >= 110){
@@ -101,9 +104,12 @@ public class GamePanel extends JPanel implements Runnable {
             }else {
                 //carM.draw(g2,i);
                 cars.draw(g2, carM.cars[i], this);
+
+//                getLight.drawLight(g2,carM.cars[i]);
             }
         }
-        getLight.drawLight(g2);
+        TileM.draw_light(g2, this, parkingLights.parkingspot_position, parkingLights.lights);
+//        getLight.drawLight(g2);
         g2.dispose();
     }
 
