@@ -19,10 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS
     int FPS = 60;
     TileManager TileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    //Player player = new Player(this, keyH);
-    GetLight getLight = new GetLight(this);
     Cars cars = new Cars(this);
     CarMovement carM = new CarMovement(this);
     ParkingLights parkingLights = new ParkingLights(this);
@@ -31,7 +28,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
         this.setFocusable(true);
         CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
         Stopwatch stopwatch = new Stopwatch(this);
@@ -78,17 +74,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        //player.update();
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             if(i >= 110){
                 continue;
             }else{
                 carM.update(i);
                 parkingLights.lights_update(carM.cars[i]);
-//                getLight.GetTile(carM.cars[i]);
+
             }
         }
-        //getLight.GetTile(player);
     }
 
     public void paintComponent(Graphics g) {
@@ -96,20 +90,15 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         TileM.draw(g2,this, TileM.mapTileNUM, TileM.tile);
-        //TileM.draw(g2);
         //  player.draw(g2, player, this);
         for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
             if(i >= 110){
                 continue;
             }else {
-                //carM.draw(g2,i);
                 cars.draw(g2, carM.cars[i], this);
-
-//                getLight.drawLight(g2,carM.cars[i]);
             }
         }
         TileM.draw_light(g2, this, parkingLights.parkingspot_position, parkingLights.lights);
-//        getLight.drawLight(g2);
         g2.dispose();
     }
 

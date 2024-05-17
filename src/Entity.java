@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Entity extends A_draw implements Collisions, ParkingCheck {
+public class Entity extends Drawable implements Collisions, ParkingCheck {
 
     protected int x = 0, y = 0;
     protected int speed;

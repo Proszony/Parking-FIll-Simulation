@@ -125,30 +125,4 @@ public class TileManager extends Tile{
 
         }
     }
-
-    public void draw(Graphics2D g2) {
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-
-        while (col < gp.maxCol && row < gp.maxRow) {
-            int tileNum = mapTileNUM[col][row];
-            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-            if (tileNum == 5) {
-                g2.drawImage(tile[22].image, x, y, gp.tileSize, gp.tileSize, null);
-            }
-            if (tileNum == 4) {
-                g2.drawImage(tile[23].image, x, y, gp.tileSize, gp.tileSize, null);
-            }
-            col++;
-            x += gp.tileSize;
-            if (col == gp.maxCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
-            }
-        }
-    }
 }

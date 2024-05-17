@@ -1,5 +1,5 @@
 import java.awt.*;
 
-public abstract class A_draw {
+public abstract class Drawable {
     abstract void draw(Graphics2D g2, Entity entity, GamePanel gp);
 }
