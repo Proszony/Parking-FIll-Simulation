@@ -5,7 +5,7 @@ import java.util.*;
 import java.io.File;
 
 public class Cars extends Entity {
-    GamePanel gp;
+//    GamePanel gp;
     public Entity[] cars;
     private final Random random = new Random();
     private final int[][] entry = new int[5][2];
@@ -57,7 +57,7 @@ public class Cars extends Entity {
         } else {
             dir = "right";
         }
-//        System.out.println(Arrays.toString(entry[start_entry]));
+
         setDeafultValues(i, entry[start_entry][0], entry[start_entry][1], 5, dir);
         //setDeafultValues(i, entry[0][0] + 940 + (0*48), entry[0][1] - 40 + (0*48), 5, "left"); // 3 ; 14
     }
@@ -195,5 +195,5 @@ public class Cars extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } // dodac specjalny samochod (np. skreca tylko w lewo)
+    }
 }

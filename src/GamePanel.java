@@ -89,16 +89,16 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        TileM.draw(g2,this, TileM.mapTileNUM, TileM.tile);
-        //  player.draw(g2, player, this);
-        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            if(i >= 110){
-                continue;
-            }else {
-                cars.draw(g2, carM.cars[i], this);
-            }
-        }
-        TileM.draw_light(g2, this, parkingLights.parkingspot_position, parkingLights.lights);
+        TileM.draw(g2,this);
+//        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
+//            if(i >= 110){
+//                continue;
+//            }else {
+//                cars.draw(g2, carM.cars[i], this);
+//            }
+//        }
+        cars.draw(g2, this);
+        TileM.draw_light(g2, this);
         g2.dispose();
     }
 

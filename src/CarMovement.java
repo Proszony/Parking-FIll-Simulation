@@ -13,8 +13,7 @@ public class CarMovement extends Cars {
     private void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
-//        if(!cars[i].parking){
-//        System.out.println("col = " + col + " row = " + row);}
+
         car2x2[1][1] = gp.TileM.mapTileNUM[col][row];
         if (row == 0) {
             for (int r = -1; r < 2; r++) {

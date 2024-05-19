@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity extends Drawable implements Collisions, ParkingCheck {
-
+    GamePanel gp;
     protected int x = 0, y = 0;
     protected int speed;
     protected BufferedImage up, down, left, right;
@@ -71,35 +71,42 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
     void setChose_turn_false(Entity entity) {
         entity.chose_turn = false;
     }
-    boolean getChose_turn(Entity entity){
+
+    boolean getChose_turn(Entity entity) {
         return entity.chose_turn;
     }
 
     // GET / SET turned
-    void setTurned_true(Entity entity){
+    void setTurned_true(Entity entity) {
         entity.turned = true;
     }
-    void setTurned_false(Entity entity){
+
+    void setTurned_false(Entity entity) {
         entity.turned = false;
     }
-    boolean getTurned(Entity entity){
+
+    boolean getTurned(Entity entity) {
         return entity.turned;
     }
 
     // DRAWING
     @Override
-    void draw(Graphics2D g2, Entity entity, GamePanel gp) {
-        BufferedImage img = switch (entity.direction) {
-            case "up" -> entity.up;
-            case "down" -> entity.down;
-            case "left" -> entity.left;
-            case "right" -> entity.right;
-            default -> null;
-        };
-        g2.drawImage(img, entity.x - 24, entity.y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
-        g2.setColor(entity.box_color);
-        if (entity.bounding_box != null) {
-            g2.draw(entity.bounding_box);
+    void draw(Graphics2D g2, GamePanel gp) {
+        for (int i = 0; i < gp.cars_parked + gp.max_cars_onscreen; i++) {
+            if(i < 110){
+                BufferedImage img = switch (gp.carM.cars[i].direction) {
+                    case "up" -> gp.carM.cars[i].up;
+                    case "down" -> gp.carM.cars[i].down;
+                    case "left" -> gp.carM.cars[i].left;
+                    case "right" -> gp.carM.cars[i].right;
+                    default -> null;
+                };
+                g2.drawImage(img, gp.carM.cars[i].x - 24, gp.carM.cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
+                g2.setColor(gp.carM.cars[i].box_color);
+                if (gp.carM.cars[i].bounding_box != null) {
+                    g2.draw(gp.carM.cars[i].bounding_box);
+                }
+            }
         }
     }
 
@@ -171,10 +178,8 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
                     row = entitySolidY / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 5 || gp.TileM.mapTileNUM[col][row] == 4) {
                         entity.parking = true;
-
                     } else {
                         entity.parking = false;
-
                     }
                     break;
                 case "right":
@@ -182,19 +187,15 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
                     row = entitySolidY / gp.tileSize;
                     if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-
                     } else {
                         entity.parking = false;
-
                     }
                     break;
                 case "up":
                     if (gp.TileM.mapTileNUM[col][row] == 4 || gp.TileM.mapTileNUM[col][row] == 5) {
                         entity.parking = true;
-
                     } else {
                         entity.parking = false;
-
                     }
                     break;
                 case "down":
@@ -210,4 +211,4 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
         }
     }
 
-}// Hermetyzacje dodac
+}
