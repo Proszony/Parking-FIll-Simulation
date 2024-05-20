@@ -157,6 +157,36 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
 //
 //        }
         if (entity1.bounding_box.intersects(entity2.bounding_box) && ((Math.abs(entity1.y - entity2.y) < 5) || (Math.abs(entity2.x - entity1.x) < 5))) {
+            switch (entity1.direction){
+                case "up":
+                    if(entity1.y < entity2.y){
+                        entity2.speed = 1;
+                    } else {
+                        entity1.speed = 1;
+                    }
+                    break;
+                case "down":
+                    if(entity1.y > entity2.y){
+                        entity2.speed = 1;
+                    } else {
+                        entity1.speed = 1;
+                    }
+                    break;
+                case "left":
+                    if(entity1.x < entity2.x){
+                        entity2.speed = 1;
+                    } else {
+                        entity1.speed = 1;
+                    }
+                    break;
+                case "right":
+                    if(entity1.x > entity2.x){
+                        entity2.speed = 1;
+                    } else {
+                        entity1.speed = 1;
+                    }
+                    break;
+            }
             return true;
         } else {
             return false;

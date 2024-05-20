@@ -1,5 +1,13 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -23,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     Cars cars = new Cars(this);
     CarMovement carM = new CarMovement(this);
     ParkingLights parkingLights = new ParkingLights(this);
+    Music music = new Music(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -31,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
         Stopwatch stopwatch = new Stopwatch(this);
+        music.playMusic("res/music/Tokyo Emergency.wav");
     }
 
     public void startGameThread() {
@@ -74,10 +84,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-            if(i >= 110){
+        for (int i = 0; i < max_cars_onscreen + cars_parked; i++) {
+            if (i >= 110) {
                 continue;
-            }else{
+            } else {
                 carM.update(i);
                 parkingLights.lights_update(carM.cars[i]);
 
@@ -89,18 +99,14 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        TileM.draw(g2,this);
-//        for(int i = 0; i < max_cars_onscreen + cars_parked; i++){
-//            if(i >= 110){
-//                continue;
-//            }else {
-//                cars.draw(g2, carM.cars[i], this);
-//            }
-//        }
+        TileM.draw(g2, this);
         cars.draw(g2, this);
         TileM.draw_light(g2, this);
         g2.dispose();
     }
+
+
+
 
 
 }

@@ -91,6 +91,12 @@ public class CarMovement extends Cars {
                 for (int j = 0; j < gp.max_cars_onscreen + gp.cars_parked; j++) {
                     if (j >= 110) continue;
                     else {
+                        if(cars[i].speed < 5){
+                            cars[i].speed = 5;
+                        }
+                        if(cars[j].speed < 5){
+                            cars[j].speed = 5;
+                        }
                         if (j != i) {
                             if (collision_check(cars[i], cars[j])) {
                                 //System.out.println("Car[" + i + "] x:" + cars[i].x + " y:" + cars[i].y + " collides with Car[" + j + "] x:" + cars[j].x + " y:" + cars[j].y);
