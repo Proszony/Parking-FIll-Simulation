@@ -19,7 +19,7 @@ public class Music {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
-                setVolume(0.1F);
+                setVolume(0.05F);
                 clip.start();
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             } else {

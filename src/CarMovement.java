@@ -7,7 +7,7 @@ public class CarMovement extends Cars {
         super(gp);
     }
 
-    public int[][] car2x2 = new int[3][3];
+    private int[][] car2x2 = new int[3][3];
     private final Random random = new Random();
 
     private void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)

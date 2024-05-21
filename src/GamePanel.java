@@ -4,10 +4,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -104,9 +100,4 @@ public class GamePanel extends JPanel implements Runnable {
         TileM.draw_light(g2, this);
         g2.dispose();
     }
-
-
-
-
-
 }
