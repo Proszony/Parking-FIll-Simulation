@@ -22,11 +22,18 @@ public class StartingWindow extends JFrame {
         JLabel background = new JLabel(new ImageIcon("res/start.jpg"));
         background.setLayout(null); // Using null layout for absolute positioning
 
-        // Panel dla przycisków plus i minus
-        JButton plusButton = new JButton("ADD A CAR");
-        plusButton.setBounds(75, 250, 300, 90); // Setting position and size
-        plusButton.setFont(new Font("Comic Sans", Font.BOLD, 24)); // Zwiększenie rozmiaru czcionki
-        plusButton.setBackground(new Color(255, 229, 204)); // Kolory tła w postaci pastelowego różowego
+        // Panel dla przycisków plus i minus oraz licznika
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(null);
+        controlPanel.setOpaque(true);
+        controlPanel.setBackground(new Color(255, 229, 204)); // Background color for the control panel
+        controlPanel.setBounds(600, 350, 230, 180); // Setting position and size
+
+        // Creating rounded buttons
+        RoundedButton plusButton = new RoundedButton("ADD A CAR");
+        plusButton.setBounds(2, 1, 226, 58); // Setting position and size within control panel
+        plusButton.setFont(new Font("Comic Sans", Font.BOLD, 18)); // Zwiększenie rozmiaru czcionki
+        plusButton.setBackground(new Color(255, 160, 140)); // Button background color
         plusButton.setFocusPainted(false); // Remove the focus border
         plusButton.addActionListener(new ActionListener() {
             @Override
@@ -38,10 +45,10 @@ public class StartingWindow extends JFrame {
             }
         });
 
-        JButton minusButton = new JButton("REMOVE A CAR");
-        minusButton.setBounds(525, 250, 300, 90); // Setting position and size
-        minusButton.setFont(new Font("Comic Sans", Font.BOLD, 24)); // Zwiększenie rozmiaru czcionki
-        minusButton.setBackground(new Color(255, 229, 204)); // Kolory tła w postaci pastelowego różowego
+        RoundedButton minusButton = new RoundedButton("REMOVE A CAR");
+        minusButton.setBounds(2, 121, 226, 58); // Setting position and size within control panel
+        minusButton.setFont(new Font("Comic Sans", Font.BOLD, 18)); // Zwiększenie rozmiaru czcionki
+        minusButton.setBackground(new Color(255, 160, 140)); // Button background color
         minusButton.setFocusPainted(false); // Remove the focus border
         minusButton.addActionListener(new ActionListener() {
             @Override
@@ -54,18 +61,24 @@ public class StartingWindow extends JFrame {
         });
 
         // Label for count with background
-        countLabel = new JLabel(String.valueOf("CARS: " + count), SwingConstants.CENTER);
-        countLabel.setFont(new Font("Comic Sans", Font.BOLD, 24)); // Zmniejszenie rozmiaru czcionki
+        countLabel = new JLabel("CARS: " + count, SwingConstants.CENTER);
+        countLabel.setFont(new Font("Comic Sans", Font.BOLD, 18)); // Zmniejszenie rozmiaru czcionki
         countLabel.setOpaque(true);
-        countLabel.setBackground(new Color(255, 160, 140)); // Background color
-        countLabel.setBounds(375, 250, 150, 90); // Setting position and size
+        countLabel.setBackground(new Color(255, 229, 204)); // Background color for the label
+        countLabel.setBounds(0, 60, 230, 60); // Setting position and size within control panel
+
+        // Adding components to the control panel
+        controlPanel.add(plusButton);
+        controlPanel.add(minusButton);
+        controlPanel.add(countLabel);
 
         // Panel dla przycisku start
-        JButton startButton = new JButton("START");
-        startButton.setBounds(310, 450, 300, 90); // Setting position and size
+        RoundedButton startButton = new RoundedButton("START");
         startButton.setFont(new Font("Comic Sans", Font.BOLD, 24)); // Zwiększenie rozmiaru czcionki
         startButton.setBackground(new Color(255, 229, 204)); // Kolory tła w postaci pastelowego różowego
         startButton.setFocusPainted(false); // Remove the focus border
+        startButton.setBounds(150, 340, 300, 90); // Centering the start button
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,10 +90,8 @@ public class StartingWindow extends JFrame {
             }
         });
 
-        // Adding components directly to the background
-        background.add(plusButton);
-        background.add(minusButton);
-        background.add(countLabel);
+        // Adding components to the background
+        background.add(controlPanel);
         background.add(startButton);
 
         // Setting the content pane to the background label
@@ -103,10 +114,46 @@ public class StartingWindow extends JFrame {
     }
 
     private void updateCountLabel() {
-        countLabel.setText(String.valueOf("CARS: " + count));
+        countLabel.setText("CARS: " + count);
     }
 
     public static void main(String[] args) {
         StartingWindow startingWindow = new StartingWindow(null);
+    }
+}
+
+// Custom rounded button class
+class RoundedButton extends JButton {
+    public RoundedButton(String label) {
+        super(label);
+        setContentAreaFilled(false);
+        setBorderPainted(false);
+        setFocusPainted(false);
+        setOpaque(false);
+        setMargin(new Insets(10, 10, 10, 10)); // Add padding to avoid content cutting off
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+        super.paintComponent(g);
+        g2.dispose();
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getForeground());
+        g2.drawRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+        g2.dispose();
+    }
+
+    @Override
+    public void setContentAreaFilled(boolean b) {
+        // No content area to fill
     }
 }

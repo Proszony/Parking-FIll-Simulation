@@ -7,11 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Stopwatch implements ActionListener {
+public class Stopwatch  {
     private JFrame frame;
-    private JButton startButton;
-    private JButton stopButton;
-    private JButton resetButton;
     private JLabel timeLabel;
     private JLabel timeLabel2;
 
@@ -19,8 +16,6 @@ public class Stopwatch implements ActionListener {
     private int seconds_100;
     private int seconds1;
     private int minutes1;
-    private boolean started;
-    private boolean stopped;
     private String seconds_100_string;
     private String seconds_string;
     private String minutes_string;
@@ -39,17 +34,12 @@ public class Stopwatch implements ActionListener {
 
     private void initializeFields() {
         frame = new JFrame();
-        startButton = new JButton();
-        stopButton = new JButton();
-        resetButton = new JButton();
         timeLabel = new JLabel();
         timeLabel2 = new JLabel();
         elapsedTime = 0;
         seconds_100 = 0;
         seconds1 = 0;
         minutes1 = 0;
-        started = false;
-        stopped = true;
         seconds_100_string = String.format("%02d", seconds_100);
         seconds_string = String.format("%02d", seconds1);
         minutes_string = String.format("%02d", minutes1);
@@ -114,23 +104,10 @@ public class Stopwatch implements ActionListener {
                 timeLabel2.setText(minutes_string + ":" + seconds_string + ":" + seconds_100_string);
 
                 if (gamePanel.cars_parked == 110) {
-                    stopped = true;
-                    started = false;
                     stop();
                 }
             }
         });
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == startButton) {
-            if (!started) {
-                started = true;
-                stopped = false;
-                start();
-            }
-        }
     }
 
     private void start() {
