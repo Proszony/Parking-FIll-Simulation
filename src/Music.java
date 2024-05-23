@@ -5,11 +5,7 @@ import javax.sound.sampled.FloatControl;
 import java.io.File;
 
 public class Music {
-    GamePanel gp;
     private Clip clip;
-    Music(GamePanel gp){
-        this.gp = gp;
-    }
     protected void playMusic(String filepath) {
         // "res/music/Wake Up, Get Up, Get Out There.wav"
         // "res/music/Tokyo Emergency.wav"

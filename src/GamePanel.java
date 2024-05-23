@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int defultTileSize = 16; // 16x16 tile
     final int scale = 3;
     final int p_scale = 3;
-    public final int tileSize = defultTileSize * scale; // zrobic static czy w klasie entity zrobic Gamepanel gp; i dac super reszcie dziedziczacych klas
+    public final int tileSize = defultTileSize * scale;
     public final int PlayerSize = defultTileSize * p_scale;
     public final int maxCol = 24; //32
     public final int maxRow = 15; //21
@@ -27,14 +27,14 @@ public class GamePanel extends JPanel implements Runnable {
     Cars cars = new Cars(this);
     CarMovement carM = new CarMovement(this);
     ParkingLights parkingLights = new ParkingLights(this);
-    Music music = new Music(this);
+    Music music = new Music();
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
-        CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this); // DODAJ FUNKCJE NIE WSZYSTKO W KOSTRUKTORZE
+        CarsParkedCounter parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this);
         Stopwatch stopwatch = new Stopwatch(this);
         music.playMusic("res/music/Tokyo Emergency.wav");
     }
