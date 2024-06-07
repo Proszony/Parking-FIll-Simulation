@@ -109,7 +109,7 @@ public class CarsParkedCounter extends JFrame {
     }
 
     private void startTimer(GamePanel gp) {
-        Timer timer = new Timer(1000, e -> {
+        Timer timer = new Timer(100, e -> {
             parkedCarsCount = gp.cars_parked;
             freeSpots = 110 - parkedCarsCount;
             parkedCarsLabel.setText("Parked Cars: " + parkedCarsCount);
@@ -117,5 +117,9 @@ public class CarsParkedCounter extends JFrame {
             progressBar.setValue(parkedCarsCount);
         });
         timer.start();
+    }
+
+    public void dispose() {
+        super.dispose();
     }
 }

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Stopwatch  {
+public class Stopwatch {
     private JFrame frame;
     private JLabel timeLabel;
     private JLabel timeLabel2;
@@ -22,9 +22,11 @@ public class Stopwatch  {
 
     private Timer timer;
     private GamePanel gamePanel;
+    private CarsParkedCounter carsParkedCounter;
 
-    public Stopwatch(GamePanel gamePanel) {
+    public Stopwatch(GamePanel gamePanel, CarsParkedCounter carsParkedCounter) {
         this.gamePanel = gamePanel;
+        this.carsParkedCounter = carsParkedCounter;
         initializeFields();
         initializeLabels();
         initializeFrame();
@@ -103,8 +105,9 @@ public class Stopwatch  {
                 timeLabel.setText(minutes_string + ":" + seconds_string + ":" + seconds_100_string);
                 timeLabel2.setText(minutes_string + ":" + seconds_string + ":" + seconds_100_string);
 
-                if (gamePanel.cars_parked == 110) {
+                if (gamePanel.cars_parked == 110) { //zmienic na 110! mozna testowac dka innej wartosci ale wtedy tez zmiana z GamePanel!
                     stop();
+
                 }
             }
         });
@@ -116,5 +119,13 @@ public class Stopwatch  {
 
     private void stop() {
         timer.stop();
+    }
+
+    public String getElapsedTime() {
+        return minutes_string + ":" + seconds_string + ":" + seconds_100_string;
+    }
+
+    public void dispose() {
+        frame.dispose();
     }
 }
