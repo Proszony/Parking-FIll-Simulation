@@ -1,28 +1,38 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
+
     private GameCompletionListener completionListener;
-    final int defaultTileSize = 16; // 16x16 tile
+
+    final int defultTileSize = 16; // 16x16 tile
     final int scale = 3;
-    public final int tileSize = defaultTileSize * scale;
-    public final int PlayerSize = defaultTileSize * scale;
-    public final int maxCol = 24;
-    public final int maxRow = 15;
+    final int p_scale = 3;
+    public final int tileSize = defultTileSize * scale;
+    public final int PlayerSize = defultTileSize * p_scale;
+    public final int maxCol = 24; //32
+    public final int maxRow = 15; //21
+
     public final int screenHeight = maxRow * tileSize;
     public final int screenWidth = maxCol * tileSize;
     public int cars_parked = 0; // indicates how many cars have parked
     public static int max_cars_onscreen; // indicates max number of cars drawn on the screen
 
     // FPS
-    int FPS = 60;
+    int FPS = 120;
     TileManager TileM = new TileManager(this);
     Thread gameThread;
     Cars cars = new Cars(this);
     CarMovement carM = new CarMovement(this);
     ParkingLights parkingLights = new ParkingLights(this);
+    Music music = new Music();
+
 
     private CarsParkedCounter parkedCarsWindow;
     private Stopwatch stopwatch;
@@ -35,11 +45,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         parkedCarsWindow = new CarsParkedCounter("Parking Status Update", this);
         stopwatch = new Stopwatch(this, parkedCarsWindow);
-    }
 
+        music.playMusic("res/music/Tokyo Emergency.wav");
+
+    }
     public static void setMaxCarsOnScreen(int value) {
         max_cars_onscreen = value;
-    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -84,14 +95,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+
     public void update() throws InterruptedException {
+
         for (int i = 0; i < max_cars_onscreen + cars_parked; i++) {
             if (i >= 110) {
                 continue;
             } else {
                 carM.update(i);
+                parkingLights.lights_update(carM.cars[i]);
             }
         }
+
         if (cars_parked >= 110) { //zmienic na 110!!! mozna testowac dka innej wartosci ale wtedy tez zmiana z stopwatch!
             gameThread = null; // Stop the game loop
             Thread.sleep(600);
@@ -100,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
                 completionListener.onGameCompleted();
             }
         }
+
     }
 
     public void showCompletionWindow() {
