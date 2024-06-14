@@ -9,6 +9,7 @@ public class Music {
     protected void playMusic(String filepath) {
         // "res/music/Wake Up, Get Up, Get Out There.wav"
         // "res/music/Tokyo Emergency.wav"
+        // "res/music/SABATON - Panzerkampf.wav"
         try {
             File musicPath = new File(filepath);
             if (musicPath.exists()) {
@@ -25,7 +26,7 @@ public class Music {
             e.printStackTrace();
         }
     }
-    public void setVolume(float volume) {
+    private void setVolume(float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int max_cars_onscreen = 5; // indicates max number of cars drawn on the screan
 
     // FPS
-    int FPS = 60;
+    int FPS = 120;
     TileManager TileM = new TileManager(this);
     Thread gameThread;
     Cars cars = new Cars(this);

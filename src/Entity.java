@@ -15,9 +15,20 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
     private boolean chose_turn = false;
     private boolean turned = false;
     private boolean no_right_truns = false;
-    private int type;
     protected Rectangle bounding_box;
     private Color box_color = new Color(Color.green.getRGB());
+    private boolean in_parking_phase;
+
+    // GET / SET parking_phase
+    public boolean getIn_parking_phase() {
+        return in_parking_phase;
+    }
+    public void setIn_parking_phase_ture() {
+        this.in_parking_phase = true;
+    }
+    public void setIn_parking_phase_false() {
+        this.in_parking_phase = true;
+    }
 
     // GET / SET leave_parkingstop
     boolean get_leaveparkingstop(Entity entity) {
@@ -52,15 +63,6 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
 
     void setNo_right_truns_true(Entity entity) {
         entity.no_right_truns = true;
-    }
-
-    // GET / SET type
-    void setType(Entity entity, int type) {
-        if (type >= 0 && type <= 11) {
-            entity.type = type;
-        } else {
-            entity.type = -1;
-        }
     }
 
     // GET / SET Chose_turn
@@ -104,7 +106,7 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
                 g2.drawImage(img, gp.carM.cars[i].x - 24, gp.carM.cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
                 g2.setColor(gp.carM.cars[i].box_color);
                 if (gp.carM.cars[i].bounding_box != null) {
-                    g2.draw(gp.carM.cars[i].bounding_box);
+                    //g2.draw(gp.carM.cars[i].bounding_box);
                 }
             }
         }

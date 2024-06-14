@@ -10,7 +10,7 @@ public class CarMovement extends Cars {
     private int[][] car2x2 = new int[3][3];
     private final Random random = new Random();
 
-    private void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
+    private void getRoad(int i) {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
 
@@ -40,7 +40,7 @@ public class CarMovement extends Cars {
                 checkingRxC(col, row, r);
             }
         }
-    }
+    } // gets the 3x3 grid of tiles (-1 for out of border)
 
     private void checkingRxC(int col, int row, int r) { // Checks tiles for columns in a row
         if (col == 0) {
@@ -389,8 +389,8 @@ public class CarMovement extends Cars {
     }
 
     private void turnRIGHT(int i) {
-        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
-        int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
+        int col = (cars[i].x + cars[i].solidArea.width) / gp.tileSize;
+        int row = (cars[i].y + cars[i].solidArea.height) / gp.tileSize;
         boolean turns_right = false;
         setTurned_true(cars[i]);
         switch (cars[i].direction) {
@@ -491,7 +491,7 @@ public class CarMovement extends Cars {
     private void park(int i) {
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
 
-        if (cars[i].y - ((row) * gp.tileSize) < -2) {
+        if (cars[i].y - ((row) * gp.tileSize) < -1) {
             if (Objects.equals(cars[i].direction, "down")) {
                 cars[i].direction = "left";
                 cars[i].x -= cars[i].speed;
@@ -507,7 +507,7 @@ public class CarMovement extends Cars {
                 cars[i].x += cars[i].speed;
             }
         }
-    }
+    } // MAy break parking while 2 from oposuite sides (small chance)
 //    void draw(Graphics2D g2, int i) { // dodac interfejs do rysowania wszystkiego
 //        BufferedImage img = switch (cars[i].direction) {
 //            case "up" -> cars[i].up;

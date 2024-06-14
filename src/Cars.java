@@ -191,7 +191,6 @@ public class Cars extends Entity {
             if(png_num == 10){
                 setNo_right_truns_true(cars[i]);
             }
-            setType(cars[i], png_num);
         } catch (IOException e) {
             e.printStackTrace();
         }
