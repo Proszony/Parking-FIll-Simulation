@@ -188,7 +188,6 @@ public class Cars extends Entity {
             cars[i].down = ImageIO.read(new File(full_path[2]));
             cars[i].left = ImageIO.read(new File(full_path[3]));
             cars[i].right = ImageIO.read(new File(full_path[0]));
-            cars[i].type = png_num;
             if(png_num == 10){
                 setNo_right_truns_true(cars[i]);
             }

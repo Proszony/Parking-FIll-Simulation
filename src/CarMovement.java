@@ -7,15 +7,13 @@ public class CarMovement extends Cars {
         super(gp);
     }
 
-    public int[][] car2x2 = new int[3][3]; //zwieksz tab o 4(jeden bok od srodka) i sprawdz czy w "okregu" jest puste miejsce
-
+    private int[][] car2x2 = new int[3][3];
     private final Random random = new Random();
 
-    private void getRoad(int i) { // gets the 3x3 grid of tiles (-1 for out of border)
+    private void getRoad(int i) {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
-//        if(!cars[i].parking){
-//        System.out.println("col = " + col + " row = " + row);}
+
         car2x2[1][1] = gp.TileM.mapTileNUM[col][row];
         if (row == 0) {
             for (int r = -1; r < 2; r++) {
@@ -42,7 +40,7 @@ public class CarMovement extends Cars {
                 checkingRxC(col, row, r);
             }
         }
-    }
+    } // gets the 3x3 grid of tiles (-1 for out of border)
 
     private void checkingRxC(int col, int row, int r) { // Checks tiles for columns in a row
         if (col == 0) {
@@ -70,14 +68,6 @@ public class CarMovement extends Cars {
 
     private void check2x2(int i) {
         getRoad(i);
-//        if(!cars[i].parking){
-//            for (int r = 0; r < 3; r++) {
-//                for (int c = 0; c < 3; c++) {
-//                    System.out.print(car2x2[c][r] + " ");
-//                }
-//                System.out.println();
-//            }
-//        }
     }
 
     public void update(int i) {
@@ -89,7 +79,7 @@ public class CarMovement extends Cars {
         } else {
             cars[i].bounding_box = new Rectangle(0, 0, 0, 0);
         }
-        if (!cars[i].chose_turn) {
+        if (!getChose_turn(cars[i])) {
             chose_LRS(i);
         }
         check2x2(i);
@@ -99,19 +89,38 @@ public class CarMovement extends Cars {
             if (!cars[i].parking) {
                 border(i);
                 for (int j = 0; j < gp.max_cars_onscreen + gp.cars_parked; j++) {
-                    if (j != i) {
-                        if (collision_check(cars[i], cars[j])) {
-                            System.out.println("Car[" + i + "] x:" + cars[i].x + " y:" + cars[i].y + " collides with Car[" + j + "] x:" + cars[j].x + " y:" + cars[j].y);
-                            setBox_color_red(cars[i]);
-                            setBox_color_red(cars[j]);
-                            break;
+                    if (j >= 110) continue;
+                    else {
+                        if(cars[i].speed < 5){
+                            cars[i].speed = 5;
+                        }
+                        if(cars[j].speed < 5){
+                            cars[j].speed = 5;
+                        }
+                        if (j != i) {
+                            if (collision_check(cars[i], cars[j])) {
+                                //System.out.println("Car[" + i + "] x:" + cars[i].x + " y:" + cars[i].y + " collides with Car[" + j + "] x:" + cars[j].x + " y:" + cars[j].y);
+                                setBox_color_red(cars[i]);
+                                setBox_color_red(cars[j]);
+                                break;
+                            }
                         }
                     }
                 }
                 move(i);
             }
+            else {
+                if (car2x2[1][1] == 4 && Objects.equals(cars[i].direction, "right")) {
+                    cars[i].direction = "left";
+                }
+                if (car2x2[1][1] == 5 && Objects.equals(cars[i].direction, "left")) {
+                    cars[i].direction = "right";
+                }
+            }
+
+
         }
-        gp.parkingCheck.checkPark(cars[i]);
+        checkPark(cars[i], gp);
 
         int counter = 0;
         for (int c = 0; c < 110; c++) {
@@ -120,41 +129,25 @@ public class CarMovement extends Cars {
             }
         }
         gp.cars_parked = counter;
-//        for(int j = 0; j < gp.cars_parked + gp.max_cars_onscreen; j++){
-//            for(int k = 0; k < gp.cars_parked + gp.max_cars_onscreen; k++){
-//                if(j != k){
-//                    if(collision_check(cars[k], cars[j])){
-//                        setBox_color_red(cars[k]);
-//                        setBox_color_red(cars[j]);
-//                        break;
-//                    } else {
-//                        setBox_color_green(cars[k]);
-//                        setBox_color_green(cars[j]);
-//                    }
-//                }
-//            }
-//        }
     }
 
     private void move(int i) {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
-        // NAPRAWIC SKRECANIE ( NAPISAC NA NOWO TYM RAZEM CZYTELNIEEEEEEE !!!!!!!!!!!!!!!!!!!! )
-        // poprawic by losowalo czy skreca tylko raz
         switch (car2x2[1][1]) {
             case 19: // up
                 cars[i].x = col * gp.tileSize;
                 cars[i].direction = "up";
                 cars[i].y -= cars[i].speed;
-                cars[i].chose_turn = false;
-                cars[i].turned = false;
+                setChose_turn_false(cars[i]);
+                setTurned_false(cars[i]);
                 break;
             case 17: // down
                 cars[i].x = col * gp.tileSize;
                 cars[i].direction = "down";
                 cars[i].y += cars[i].speed;
-                cars[i].chose_turn = false;
-                cars[i].turned = false;
+                setChose_turn_false(cars[i]);
+                setTurned_false(cars[i]);
                 break;
             case 9: // left // 3 - way left turn (left -> down)
                 if (car2x2[1][2] == 0 && cars[i].x - (col * gp.tileSize) < 1) {
@@ -177,18 +170,18 @@ public class CarMovement extends Cars {
                     if (cars[i].y - (row * gp.tileSize) > 5) {
                         cars[i].direction = "up";
                         cars[i].y -= cars[i].speed;
-                        cars[i].chose_turn = false;
-                        cars[i].turned = false;
+                        setChose_turn_false(cars[i]);
+                        setTurned_false(cars[i]);
                     } else if ((row * gp.tileSize) - cars[i].y > 5) {
                         cars[i].direction = "down";
                         cars[i].y += cars[i].speed;
-                        cars[i].chose_turn = false;
-                        cars[i].turned = false;
+                        setChose_turn_false(cars[i]);
+                        setTurned_false(cars[i]);
                     } else {
                         cars[i].direction = "left";
                         cars[i].x -= cars[i].speed;
-                        cars[i].chose_turn = false;
-                        cars[i].turned = false;
+                        setChose_turn_false(cars[i]);
+                        setTurned_false(cars[i]);
                     }
                 }
                 break;
@@ -212,13 +205,13 @@ public class CarMovement extends Cars {
                 } else {
                     cars[i].direction = "right";
                     cars[i].x += cars[i].speed;
-                    cars[i].chose_turn = false;
-                    cars[i].turned = false;
+                    setChose_turn_false(cars[i]);
+                    setTurned_false(cars[i]);
                 }
                 break;
             default:
                 // 4 - way left turn (down -> right)  LEFT
-                if (car2x2[1][1] == 0 && car2x2[1][0] == 1 && (row * gp.tileSize) - cars[i].y < 1 && Objects.equals(cars[i].direction, "down") && !cars[i].turned) {
+                if (car2x2[1][1] == 0 && car2x2[1][0] == 1 && (row * gp.tileSize) - cars[i].y < 1 && Objects.equals(cars[i].direction, "down") && !getTurned(cars[i])) {
                     if (cars[i].chose_turnLRS == 0) {
                         turnLEFT(i);
                         if (Objects.equals(cars[i].direction, "right")) {
@@ -231,7 +224,7 @@ public class CarMovement extends Cars {
                             cars[i].y += cars[i].speed;
                         }
                     } // 4 - way left turn (up -> left)  LEFT
-                } else if (car2x2[1][1] == 2 && car2x2[1][2] == 3 && cars[i].y - (row * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "up") && !cars[i].turned) {
+                } else if (car2x2[1][1] == 2 && car2x2[1][2] == 3 && cars[i].y - (row * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "up") && !getTurned(cars[i])) {
                     if (cars[i].chose_turnLRS == 0) {
                         turnLEFT(i);
                         if (Objects.equals(cars[i].direction, "left")) {
@@ -244,7 +237,7 @@ public class CarMovement extends Cars {
                             cars[i].y -= cars[i].speed;
                         }
                     } // 4 - way left turn (left -> down)  LEFT
-                } else if (car2x2[1][1] == 1 && car2x2[1][2] == 0 && cars[i].x - (col * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "left") && !cars[i].turned) {
+                } else if (car2x2[1][1] == 1 && car2x2[1][2] == 0 && cars[i].x - (col * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "left") && !getTurned(cars[i])) {
                     if (cars[i].chose_turnLRS == 0) {
                         turnLEFT(i);
                         if (Objects.equals(cars[i].direction, "down")) {
@@ -257,7 +250,7 @@ public class CarMovement extends Cars {
                             cars[i].x -= cars[i].speed;
                         }
                     } // 4 - way left turn (right -> up)  LEFT
-                } else if (car2x2[1][1] == 3 && car2x2[1][0] == 2 && (col * gp.tileSize) - cars[i].x < 1 && Objects.equals((cars[i].direction), "right") && !cars[i].turned) {
+                } else if (car2x2[1][1] == 3 && car2x2[1][0] == 2 && (col * gp.tileSize) - cars[i].x < 1 && Objects.equals((cars[i].direction), "right") && !getTurned(cars[i])) {
                     if (cars[i].chose_turnLRS == 0) {
                         turnLEFT(i);
                         if (Objects.equals(cars[i].direction, "up")) {
@@ -271,7 +264,7 @@ public class CarMovement extends Cars {
                         }
                     } // 4 - way right turn (right -> down)
                 } else if (car2x2[1][1] == 0 && car2x2[2][1] == 3 && (col * gp.tileSize) - cars[i].x < 1 && Objects.equals(cars[i].direction, "right")
-                        && !cars[i].turned && !getNo_right_truns(cars[i])) {
+                        && !getTurned(cars[i]) && !getNo_right_truns(cars[i])) {
                     if (cars[i].chose_turnLRS == 1) {
                         turnRIGHT(i);
                         if (Objects.equals(cars[i].direction, "down")) {
@@ -285,7 +278,7 @@ public class CarMovement extends Cars {
                         }
                     } // 4 - way right turn (left -> up)
                 } else if (car2x2[1][1] == 2 && car2x2[0][1] == 1 && cars[i].x - (col * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "left")
-                        && !cars[i].turned && !getNo_right_truns(cars[i])) {
+                        && !getTurned(cars[i]) && !getNo_right_truns(cars[i])) {
                     if (cars[i].chose_turnLRS == 1) {
                         turnRIGHT(i);
                         if (Objects.equals(cars[i].direction, "up")) {
@@ -297,9 +290,9 @@ public class CarMovement extends Cars {
                             cars[i].y = row * gp.tileSize - 10;
                             cars[i].x -= cars[i].speed;
                         }
-                    } // 4 - way right turn (up -> right)
-                } else if (car2x2[1][1] == 3 && car2x2[1][0] == 2 && cars[i].y - (row * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "up")
-                        && !cars[i].turned && !getNo_right_truns(cars[i])) {
+                    } // 4 - way right turn (up -> right) car2x2[1][0] == 2
+                } else if (car2x2[1][1] == 3 && car2x2[0][1] == 0 && cars[i].y - (row * gp.tileSize) < 1 && Objects.equals(cars[i].direction, "up")
+                        && !getTurned(cars[i]) && !getNo_right_truns(cars[i])) {
                     if (cars[i].chose_turnLRS == 1) {
                         turnRIGHT(i);
                         if (Objects.equals(cars[i].direction, "right")) {
@@ -311,9 +304,9 @@ public class CarMovement extends Cars {
                             cars[i].x = col * gp.tileSize;
                             cars[i].y -= cars[i].speed;
                         }
-                    } // 4 - way right turn (down -> left)
-                } else if (car2x2[1][1] == 1 && car2x2[1][2] == 0 && (row * gp.tileSize) - cars[i].y < 1 && Objects.equals(cars[i].direction, "down")
-                        && !cars[i].turned && !getNo_right_truns(cars[i])) {
+                    } // 4 - way right turn (down -> left) car2x2[1][2] == 0
+                } else if (car2x2[1][1] == 1 && car2x2[2][1] == 2 && (row * gp.tileSize) - cars[i].y < 1 && Objects.equals(cars[i].direction, "down")
+                        && !getTurned(cars[i]) && !getNo_right_truns(cars[i])) {
                     if (cars[i].chose_turnLRS == 1) {
                         turnRIGHT(i);
                         if (Objects.equals(cars[i].direction, "left")) {
@@ -325,7 +318,7 @@ public class CarMovement extends Cars {
                             cars[i].x = col * gp.tileSize;
                             cars[i].y += cars[i].speed;
                         }
-                    }
+                    } // skret w prawo na brzegach
                 } else {
                     switch (cars[i].direction) {
                         case "up":
@@ -346,7 +339,7 @@ public class CarMovement extends Cars {
     }
 
     private void chose_LRS(int i) {
-        cars[i].chose_turn = true;
+        setChose_turn_true(cars[i]);
         cars[i].chose_turnLRS = random.nextInt(99) % 3;
         cars[i].chose_turnLR = random.nextInt(100) % 2;
 
@@ -358,7 +351,7 @@ public class CarMovement extends Cars {
         int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
         boolean turns_left = false;
-        cars[i].turned = true;
+        setTurned_true(cars[i]);
         switch (cars[i].direction) {
             case "right": //roadsideD
                 if (car2x2[1][0] == 2 && (col * gp.tileSize) - cars[i].x < 1 && Objects.equals(cars[i].direction, "right")) {
@@ -396,10 +389,10 @@ public class CarMovement extends Cars {
     }
 
     private void turnRIGHT(int i) {
-        int col = (cars[i].x + cars[i].solidArea.width + 5) / gp.tileSize;
-        int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
+        int col = (cars[i].x + cars[i].solidArea.width) / gp.tileSize;
+        int row = (cars[i].y + cars[i].solidArea.height) / gp.tileSize;
         boolean turns_right = false;
-        cars[i].turned = true;
+        setTurned_true(cars[i]);
         switch (cars[i].direction) {
             case "right": // roadsideD
                 if (car2x2[2][1] == 3 && (col * gp.tileSize) - cars[i].x < 1 && Objects.equals(cars[i].direction, "right")) {
@@ -498,7 +491,7 @@ public class CarMovement extends Cars {
     private void park(int i) {
         int row = (cars[i].y + cars[i].solidArea.height + 5) / gp.tileSize;
 
-        if (cars[i].y - ((row) * gp.tileSize) < -2) {
+        if (cars[i].y - ((row) * gp.tileSize) < -1) {
             if (Objects.equals(cars[i].direction, "down")) {
                 cars[i].direction = "left";
                 cars[i].x -= cars[i].speed;
@@ -514,15 +507,5 @@ public class CarMovement extends Cars {
                 cars[i].x += cars[i].speed;
             }
         }
-    }
-//    void draw(Graphics2D g2, int i) { // dodac interfejs do rysowania wszystkiego
-//        BufferedImage img = switch (cars[i].direction) {
-//            case "up" -> cars[i].up;
-//            case "down" -> cars[i].down;
-//            case "left" -> cars[i].left;
-//            case "right" -> cars[i].right;
-//            default -> null;
-//        };
-//        g2.drawImage(img, cars[i].x - 24, cars[i].y - 24, gp.PlayerSize * 2, gp.PlayerSize * 2, null);
-//    }
+    } // MAy break parking while 2 from oposuite sides (small chance)
 }

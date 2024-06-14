@@ -1,15 +1,17 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class StartingWindow extends JFrame {
 
     private JLabel countLabel;
-    private int count = 0;
+    private int count = 1;
     private StartListener startListener;
 
     StartingWindow(StartListener startListener) {
@@ -23,9 +25,10 @@ public class StartingWindow extends JFrame {
         background.setLayout(null); // Using null layout for absolute positioning
 
         // Panel dla przycisków plus i minus oraz licznika
-        JPanel controlPanel = new JPanel();
+        JPanel controlPanel = new RoundedPanel();
         controlPanel.setLayout(null);
         controlPanel.setOpaque(true);
+//        controlPanel.setBorder(new RoundedBorder(Color.black, 20));
         controlPanel.setBackground(new Color(255, 229, 204)); // Background color for the control panel
         controlPanel.setBounds(600, 350, 230, 180); // Setting position and size
 
@@ -53,7 +56,7 @@ public class StartingWindow extends JFrame {
         minusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (count > 0) {
+                if (count > 1) {
                     count--;
                     updateCountLabel();
                 }
@@ -64,6 +67,7 @@ public class StartingWindow extends JFrame {
         countLabel = new JLabel("CARS: " + count, SwingConstants.CENTER);
         countLabel.setFont(new Font("Comic Sans", Font.BOLD, 18)); // Zmniejszenie rozmiaru czcionki
         countLabel.setOpaque(true);
+//        countLabel.setBorder(new RoundedBorder(Color.black , 20));
         countLabel.setBackground(new Color(255, 229, 204)); // Background color for the label
         countLabel.setBounds(0, 60, 230, 60); // Setting position and size within control panel
 
@@ -101,6 +105,7 @@ public class StartingWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(920, 665); // Ustawienie rozmiaru okna
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
         setResizable(false);
 
@@ -155,5 +160,35 @@ class RoundedButton extends JButton {
     @Override
     public void setContentAreaFilled(boolean b) {
         // No content area to fill
+    }
+}
+
+class RoundedPanel extends JPanel {
+
+    private int cornerRadius = 15; // Promień zaokrąglonych rogów
+
+    public RoundedPanel() {
+        setOpaque(false);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Rysowanie tła z zaokrąglonymi rogami
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+    }
+
+    @Override
+    protected void paintBorder(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Rysowanie obramowania z zaokrąglonymi rogami
+        g2.setColor(getForeground());
+        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
     }
 }

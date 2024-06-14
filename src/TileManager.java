@@ -1,24 +1,63 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.HashMap;
 
 public class TileManager extends Tile{
     GamePanel gp;
-    public Tile[] tile;
-    public int[][] mapTileNUM;
+    protected Tile[] tile;
+    protected int[][] mapTileNUM;
+    private HashMap<Integer, String> filepathMap = new HashMap<>();
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[25];
+        tile = new Tile[24];
         mapTileNUM = new int[gp.maxCol][gp.maxRow];
-        getTileImage();
+        getTileImg();
         loadMap("mapfrfrsmol.csv");
     }
+    private void initFilepathMap(){
+        filepathMap.put(0, "/tiles/hollowTurn1.png");
+        filepathMap.put(1, "/tiles/hollowTurn2.png");
+        filepathMap.put(2, "/tiles/hollowTurn3.png");
+        filepathMap.put(3, "/tiles/hollowTurn4.png");
+        filepathMap.put(4, "/tiles/parking4.png");
+        filepathMap.put(5, "/tiles/parking5.png");
+        filepathMap.put(6, "/tiles/parking6.png");
+        filepathMap.put(7, "/tiles/parking7.png");
+        filepathMap.put(8, "/tiles/roadsideD.png");
+        filepathMap.put(9, "/tiles/roadsideU.png");
+        filepathMap.put(10, "/tiles/roadTurn1.png");
+        filepathMap.put(11, "/tiles/roadTurn2.png");
+        filepathMap.put(12, "/tiles/roadTurn3.png");
+        filepathMap.put(13, "/tiles/roadTurn4.png");
+        filepathMap.put(14, "/tiles/roadTurn11.png");
+        filepathMap.put(15, "/tiles/roadTurn41.png");
+        filepathMap.put(16, "/tiles/roadupL.png");
+        filepathMap.put(17, "/tiles/roadupL2.png");
+        filepathMap.put(18, "/tiles/roadupR.png");
+        filepathMap.put(19, "/tiles/roadupR2.png");
+        filepathMap.put(20, "/lights/bulb_red_left.png");
+        filepathMap.put(21, "/lights/bulb_red_right.png");
+        filepathMap.put(22, "/lights/bulb_green_left.png");
+        filepathMap.put(23, "/lights/bulb_green_right.png");
+    } // INICJALIZACJA MAPY FILEPATH DO ZDJEC
+    private void getTileImg(){
+        initFilepathMap();
+        try {
+            for (int i = 0; i < tile.length; i++) {
+                tile[i] = new Tile();
+                tile[i].image = ImageIO.read(getClass().getResourceAsStream(filepathMap.get(i)));
+                if (i == 4 || i == 5) {
+                    setParkingspot_ture(tile[i]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // POBRANIE ZDJEC Z PLIKU
 
-    public void getTileImage() {
+    private void getTileImage() {
         try {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/hollowTurn1.png"));
@@ -98,9 +137,9 @@ public class TileManager extends Tile{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } // STARE NIE ITERACYJNE DODAWANIE PLIKU
 
-    public void loadMap(String filePath) {
+    private void loadMap(String filePath) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -124,31 +163,5 @@ public class TileManager extends Tile{
         } catch (Exception e) {
 
         }
-    }
-
-    public void draw(Graphics2D g2) {
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-
-        while (col < gp.maxCol && row < gp.maxRow) {
-            int tileNum = mapTileNUM[col][row];
-            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-            if (tileNum == 5) {
-                g2.drawImage(tile[22].image, x, y, gp.tileSize, gp.tileSize, null);
-            }
-            if (tileNum == 4) {
-                g2.drawImage(tile[23].image, x, y, gp.tileSize, gp.tileSize, null);
-            }
-            col++;
-            x += gp.tileSize;
-            if (col == gp.maxCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
-            }
-        }
-    }
+    } // LADOWANIE MAPY
 }
