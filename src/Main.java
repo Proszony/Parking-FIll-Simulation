@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Main {
+    private static JFrame window;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -27,17 +29,24 @@ public class Main {
             e.printStackTrace();
         }
 
-        JFrame window = new JFrame();
+        window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Parking Test Simulation");
         window.setIconImage(img);
 
-        GamePanel gamePanel = new GamePanel();
+        GameCompletionListener completionListener = new GameCompletionListener() {
+            @Override
+            public void onGameCompleted() {
+                window.dispose();
+            }
+        };
+
+        GamePanel gamePanel = new GamePanel(completionListener);
         window.add(gamePanel);
         window.pack();
         window.setLocationRelativeTo(null);
-        window.setLocation(450, 50);
+        window.setLocation(365, 125);
         window.setVisible(true);
 
         gamePanel.startGameThread();
