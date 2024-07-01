@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Stopwatch stopwatch;
 
     public GamePanel(GameCompletionListener completionListener) {
-        this.completionListener=completionListener;
+        this.completionListener = completionListener;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -49,8 +49,10 @@ public class GamePanel extends JPanel implements Runnable {
         music.playMusic("res/music/Tokyo Emergency.wav");
 
     }
+
     public static void setMaxCarsOnScreen(int value) {
         max_cars_onscreen = value;
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -134,3 +136,5 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 }
+
+
