@@ -98,7 +98,7 @@ public class CarsParkedCounter extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setLocation(30, 370);
+        this.setLocation(15, 370);
 
         try {
             BufferedImage img = ImageIO.read(Main.class.getResource("/car-icon.png"));
@@ -109,7 +109,7 @@ public class CarsParkedCounter extends JFrame {
     }
 
     private void startTimer(GamePanel gp) {
-        Timer timer = new Timer(1000, e -> {
+        Timer timer = new Timer(100, e -> {
             parkedCarsCount = gp.cars_parked;
             freeSpots = 110 - parkedCarsCount;
             parkedCarsLabel.setText("Parked Cars: " + parkedCarsCount);
@@ -117,5 +117,9 @@ public class CarsParkedCounter extends JFrame {
             progressBar.setValue(parkedCarsCount);
         });
         timer.start();
+    }
+
+    public void dispose() {
+        super.dispose();
     }
 }

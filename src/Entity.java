@@ -115,49 +115,6 @@ public class Entity extends Drawable implements Collisions, ParkingCheck {
     // COLLISIONS
     @Override
     public boolean collision_check(Entity entity1, Entity entity2) {
-//        switch (entity1.direction) {
-//            case "up":
-////                if (entity1.y - entity2.y < (3 * GamePanel.tileSize) && entity1.y - entity2.y >= 1 && Math.abs(entity1.x - entity2.x) < 5 && !entity1.parking && !entity2.parking) {
-////                    entity1.speed = 1;
-////                    return true;
-////                }
-//                if (entity1.bounding_box.intersects(entity2.bounding_box) && Math.abs(entity2.x - entity1.x) < 5 && !entity1.parking && !entity2.parking) {
-//                    entity1.speed = 1;
-//                    return true;
-//                }
-//                break;
-//            case "down":
-////                if (entity2.y - entity1.y < (3 * GamePanel.tileSize) && entity2.y - entity1.y >= 1 && Math.abs(entity2.x - entity1.x) < 5 && !entity1.parking && !entity2.parking) {
-////                    entity1.speed =1;
-////                    return true;
-////                }
-//                if (entity2.bounding_box.intersects(entity1.bounding_box) && Math.abs(entity2.x - entity1.x) < 5 && !entity1.parking && !entity2.parking) {
-//                    entity1.speed = 1;
-//                    return true;
-//                }
-//                break;
-//            case "left":
-////                if (entity1.x - entity2.x < (3 * GamePanel.tileSize) && entity1.x - entity2.x >= 1 && Math.abs(entity1.y - entity2.y) < 5 && !entity1.parking && !entity2.parking){
-////                    entity1.speed = 1;
-////                    return true;
-////                }
-//                if (entity1.bounding_box.intersects(entity2.bounding_box) && Math.abs(entity1.y - entity2.y) < 5 && !entity1.parking && !entity2.parking) {
-//                    entity1.speed = 1;
-//                    return true;
-//                }
-//                break;
-//            case "right":
-////                if (entity2.x - entity1.x < (3 * GamePanel.tileSize) && entity2.x - entity1.x >= 1 && Math.abs(entity2.y - entity1.y) < 5 && !entity1.parking && !entity2.parking) {
-////                    entity1.speed = 1;
-////                    return true;
-////                }
-//                if (entity2.bounding_box.intersects(entity1.bounding_box) && Math.abs(entity1.y - entity2.y) < 5 && !entity1.parking && !entity2.parking) {
-//                    entity1.speed = 1;
-//                    return true;
-//                }
-//                break;
-//
-//        }
         if (entity1.bounding_box.intersects(entity2.bounding_box) && ((Math.abs(entity1.y - entity2.y) < 5) || (Math.abs(entity2.x - entity1.x) < 5))) {
             switch (entity1.direction){
                 case "up":
