@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int max_cars_onscreen; // indicates max number of cars drawn on the screen
 
     // FPS
-    int FPS = 120;
+    int FPS = 60;
     TileManager TileM = new TileManager(this);
     Thread gameThread;
     Cars cars = new Cars(this);
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Stopwatch stopwatch;
 
     public GamePanel(GameCompletionListener completionListener) {
-        this.completionListener=completionListener;
+        this.completionListener = completionListener;
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -49,8 +49,10 @@ public class GamePanel extends JPanel implements Runnable {
         music.playMusic("res/music/Tokyo Emergency.wav");
 
     }
+
     public static void setMaxCarsOnScreen(int value) {
         max_cars_onscreen = value;
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -134,3 +136,5 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 }
+
+
