@@ -1,4 +1,5 @@
 Clases:
+
 Main - creates window and manages it
 
 StartingWindow - creates starting window and manages the start of simulation
